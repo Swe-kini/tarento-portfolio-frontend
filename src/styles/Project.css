@@ -1,0 +1,66 @@
+/* Project.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Ensures padding and borders don't cause overflow */
+  }
+  
+  html, body {
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    width: 100%;
+  }
+  
+  .projects-container {
+    background-color: #f9f9f9;
+    padding: 20px;
+    width: 100%;
+  }
+  
+  .projects-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .projects-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr; /* Align cards vertically in a single column */
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .project-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+  }
+  
+  .project-title {
+    margin: 0;
+    padding: 15px;
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .project-description {
+    padding: 0 15px 15px;
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .project-card::marker {
+    display: none;
+  }
+  
