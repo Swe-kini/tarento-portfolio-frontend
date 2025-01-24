@@ -1,5 +1,7 @@
+// About.jsx
 import React, { useEffect, useState } from "react";
 import { fetchUserProfile, fetchSkills, fetchEducations, fetchCourses, fetchProjects } from "../services/api";
+import "../styles/About.css";  // Import the CSS file
 
 const About = () => {
   const [user, setUser] = useState(null);
@@ -9,15 +11,12 @@ const About = () => {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    const userId = 1; // Assuming we're using the same user ID for all data
-
-    // Fetch all data concurrently
     Promise.all([
-      fetchUserProfile(userId),
-      fetchSkills(userId),
-      fetchEducations(userId),
-      fetchCourses(userId),
-      fetchProjects(userId)
+      fetchUserProfile(1),
+      fetchSkills(),
+      fetchEducations(),
+      fetchCourses(),
+      fetchProjects()
     ])
       .then(([userData, skillsData, educationsData, coursesData, projectsData]) => {
         setUser(userData);
@@ -31,38 +30,43 @@ const About = () => {
       });
   }, []);
 
-  if (!user || !skills || !educations || !courses || !projects) return <p>Loading...</p>;
+  // Check if data is still loading or not
+  if (!user || skills.length === 0 || educations.length === 0 || courses.length === 0 || projects.length === 0) {
+    return <p>Loading...</p>;
+  }
 
   return (
-    <div>
-      <h1>About Me</h1>
-      <p>{user.description}</p>
+    <div className="about">
+      <h1 className="about-title">About Me</h1>
 
-      <h2>Education</h2>
+      <h2 className="section-title">Education</h2>
       <ul>
         {educations.map((edu) => (
           <li key={edu.id}>{edu.degree} - {edu.institution}</li>
         ))}
       </ul>
 
-      <h2>Courses</h2>
+      <h2 className="section-title">Courses</h2>
       <ul>
-        {courses.map((course) => (
-          <li key={course.id}>{course.name}</li>
-        ))}
-      </ul>
+  {courses.map((course) => {
+    // Combine non-null values into a single line
+    const courseDetails = [
+      course.name,
+      course.provider,
+      course.completionDate
+    ]
+      .filter((detail) => detail) // Remove null or undefined values
+      .join("     ---------") // Join the values with a hyphen
 
-      <h2>Skills</h2>
+    return <li key={course.id}>{courseDetails}</li>;
+  })}
+</ul>
+
+
+      <h2 className="section-title">Skills</h2>
       <ul>
         {skills.map((skill) => (
           <li key={skill.id}>{skill.name}</li>
-        ))}
-      </ul>
-
-      <h2>Projects</h2>
-      <ul>
-        {projects.map((project) => (
-          <li key={project.id}>{project.title}</li>
         ))}
       </ul>
     </div>

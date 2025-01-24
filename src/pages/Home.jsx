@@ -27,54 +27,43 @@ const Home = () => {
   if (!user) return <p>Loading...</p>; // Display loading message
 
   return (
-    <div className="container">
-  {/* Profile Section */}
-  <div className="profile-container">
-    <h1>
-      HI <br />
-      I AM {user.name}
-    </h1>
-    <img
-      src={`http://localhost:8080${user.profile_pic}`}
-      alt="Profile"
-      className="profile-img"
-    />
-  </div>
+    <div className="home">
+      {/* Profile Section */}
+      <div className="profile-container">
+        <h1>HI <br /> I AM {user.name}</h1>
+        <img src={`http://localhost:8080${user.profile_pic}`} alt="Profile" className="profile-img" />
+      </div>
 
-  {/* Description Section */}
-  <div className="description-container">
-    <p className="description">{user.description}</p>
-  </div>
+      {/* Description Section */}
+      <div className="description-container">
+        <p className="description">{user.description}</p>
+      </div>
 
-  {/* Contact Information Section */}
-  <div className="contact-container">
-    <p className="contact">
-      {user.phone} <br />
-      {user.email}
-    </p>
-  </div>
+      {/* Contact Information Section */}
+      <div className="contact-container">
+        <p className="contact">
+          {user.phone} <br />
+          {user.email}
+        </p>
+      </div>
 
-  {/* Social Media Links Section */}
-  <div className="social-container">
-    <div className="social-icons">
-      <a href="https://github.com/Swe-kini" target="_blank" rel="noopener noreferrer">
-        <FaGithub />
-      </a>
-      <a href="https://www.linkedin.com/in/swetha-benny/" target="_blank" rel="noopener noreferrer">
-        <FaLinkedin />
-      </a>
-      <a href="https://www.instagram.com/swe_kini" target="_blank" rel="noopener noreferrer">
-        <FaInstagram />
-      </a>
+      {/* Social Media Links Section */}
+      <div className="social-container">
+        <div className="social-icons">
+          <a href="https://github.com/Swe-kini" target="_blank" rel="noopener noreferrer">
+            <FaGithub />
+          </a>
+          <a href="https://www.linkedin.com/in/swetha-benny/" target="_blank" rel="noopener noreferrer">
+            <FaLinkedin />
+          </a>
+          <a href="https://www.instagram.com/swe_kini" target="_blank" rel="noopener noreferrer">
+            <FaInstagram />
+          </a>
+        </div>
+      </div>
+
     </div>
-  </div>
-
-  {/* About Me Button */}
-  <Link to="/about" className="about-link">About Me</Link>
-
-</div>
   );
-};    
-    
+};
 
 export default Home;

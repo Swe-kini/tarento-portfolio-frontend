@@ -1,38 +1,35 @@
+// Projects.jsx
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import { fetchProjects } from "../services/api"; // Import API to fetch projects
+import "../styles/Project.css"; // Import CSS for styling
 
-function Projects() {
+const Projects = () => {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    // Fetch all projects from backend
-    axios
-      .get("http://localhost:8080/api/projects")
-      .then((response) => setProjects(response.data))
-      .catch((error) => console.error("Error fetching projects:", error));
+    fetchProjects()
+      .then((data) => {
+        setProjects(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching projects:", error);
+      });
   }, []);
 
+  if (projects.length === 0) {
+    return <p>Loading projects...</p>; // Show loading state
+  }
+
   return (
-    <div className="container mt-5">
-      <h1>My Projects</h1>
-      <div className="row">
+    <div className="projects-container">
+      <h1 className="projects-title">Projects</h1>
+      <ul>
         {projects.map((project) => (
-          <div className="col-md-4" key={project.id}>
-            <div className="card mb-3">
-              <div className="card-body">
-                <h5 className="card-title">{project.title}</h5>
-                <p className="card-text">{project.shortDescription}</p>
-                <Link to={`/projects/${project.id}`} className="btn btn-primary">
-                  View Details
-                </Link>
-              </div>
-            </div>
-          </div>
+          <li key={project.id}>{project.title}</li>
         ))}
-      </div>
+      </ul>
     </div>
   );
-}
+};
 
 export default Projects;

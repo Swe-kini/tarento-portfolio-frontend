@@ -1,0 +1,52 @@
+/* About Page Styles */
+*{
+margin: 0;
+padding: 0;     
+}
+
+.about {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    background-color: #34495e;
+  }
+  
+  .about-title {
+    text-align: center;
+    font-size: 3rem;
+    color: #ff5722;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+    color: #fff;
+    margin-bottom: 10px;
+    text-decoration: underline;
+    text-underline-offset: 8px;
+    border-bottom: 2px solid #ff5722;
+    padding-bottom: 5px;
+    margin-top: 20px;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-bottom: 40px;
+  }
+  
+  li {
+    font-size: 1.2rem;
+    color: #ecf0f1;
+    margin-bottom: 15px;
+    background-color: #34495e;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  li:hover {
+    background-color: #ff5722;
+  }
+  
+  /* Responsive design (same as previous) */
+  
