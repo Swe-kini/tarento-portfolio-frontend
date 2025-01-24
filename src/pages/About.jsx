@@ -1,16 +1,37 @@
 import React, { useEffect, useState } from "react";
-import { fetchUserProfile } from "../services/api";
+import { fetchUserProfile, fetchSkills, fetchEducations, fetchCourses, fetchProjects } from "../services/api";
 
 const About = () => {
   const [user, setUser] = useState(null);
+  const [skills, setSkills] = useState([]);
+  const [educations, setEducations] = useState([]);
+  const [courses, setCourses] = useState([]);
+  const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    fetchUserProfile(1) // Fetch user with ID 1
-      .then((data) => setUser(data))
-      .catch((error) => console.error("Error fetching user profile:", error));
+    const userId = 1; // Assuming we're using the same user ID for all data
+
+    // Fetch all data concurrently
+    Promise.all([
+      fetchUserProfile(userId),
+      fetchSkills(userId),
+      fetchEducations(userId),
+      fetchCourses(userId),
+      fetchProjects(userId)
+    ])
+      .then(([userData, skillsData, educationsData, coursesData, projectsData]) => {
+        setUser(userData);
+        setSkills(skillsData);
+        setEducations(educationsData);
+        setCourses(coursesData);
+        setProjects(projectsData);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
   }, []);
 
-  if (!user) return <p>Loading...</p>;
+  if (!user || !skills || !educations || !courses || !projects) return <p>Loading...</p>;
 
   return (
     <div>
@@ -19,30 +40,28 @@ const About = () => {
 
       <h2>Education</h2>
       <ul>
-        {user.educations.map((edu) => (
-          <li key={edu.id}>
-            {edu.degree} - {edu.institution}
-          </li>
+        {educations.map((edu) => (
+          <li key={edu.id}>{edu.degree} - {edu.institution}</li>
         ))}
       </ul>
 
       <h2>Courses</h2>
       <ul>
-        {user.courses.map((course) => (
+        {courses.map((course) => (
           <li key={course.id}>{course.name}</li>
         ))}
       </ul>
 
       <h2>Skills</h2>
       <ul>
-        {user.skills.map((skill) => (
+        {skills.map((skill) => (
           <li key={skill.id}>{skill.name}</li>
         ))}
       </ul>
 
       <h2>Projects</h2>
       <ul>
-        {user.projects.map((project) => (
+        {projects.map((project) => (
           <li key={project.id}>{project.title}</li>
         ))}
       </ul>

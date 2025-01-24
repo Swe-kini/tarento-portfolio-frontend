@@ -1,43 +1,80 @@
 import React, { useEffect, useState } from "react";
-import { fetchUserProfile } from "../services/api";  
-import { Link } from "react-router-dom";  // Import Link for navigation
+import { fetchUserProfile } from "../services/api";
+import { Link } from "react-router-dom";
+import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';  // Import icons
+
+import "../styles/Home.css";  // Import the CSS file
 
 const Home = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    fetchUserProfile(1)  
+    fetchUserProfile(1)
       .then((data) => {
-        console.log("Fetched user data:", data);  // Log the fetched data
-        setUser(data);  // Set the user data to state
+        console.log("Fetched data:", data);
+        if (data.profile_pic) {
+          console.log("Profile Pic URL:", `http://localhost:8080${data.profile_pic}`);
+        } else {
+          console.warn("Profile picture URL is missing in the fetched data.");
+        }
+        setUser(data);
       })
       .catch((error) => {
         console.error("Error fetching user profile:", error);
       });
-  }, []);  // This ensures this effect runs only once, on component mount
-  
-  // Log to see if the state has been updated
-  console.log("User state:", user);
-  
-  
-  if (!user) return <p>Loading...</p>;  // Display loading while fetching data
+  }, []); // Runs once on mount
+
+  if (!user) return <p>Loading...</p>; // Display loading message
 
   return (
-    <div>
-      <h1>Welcome to {user.name}'s Portfolio</h1>
-      
-      {/* Profile Image */}
-      <img src={`http://localhost:8080${user.profilePic}`} alt="Profile" style={{ width: "200px" }} />
+    <div className="container">
+  {/* Profile Section */}
+  <div className="profile-container">
+    <h1>
+      HI <br />
+      I AM {user.name}
+    </h1>
+    <img
+      src={`http://localhost:8080${user.profile_pic}`}
+      alt="Profile"
+      className="profile-img"
+    />
+  </div>
 
-      {/* Description */}
-      <p>{user.description}</p>
+  {/* Description Section */}
+  <div className="description-container">
+    <p className="description">{user.description}</p>
+  </div>
 
-      
+  {/* Contact Information Section */}
+  <div className="contact-container">
+    <p className="contact">
+      {user.phone} <br />
+      {user.email}
+    </p>
+  </div>
 
-      {/* About Me Button */}
-      <Link to="/about">About Me</Link>
+  {/* Social Media Links Section */}
+  <div className="social-container">
+    <div className="social-icons">
+      <a href="https://github.com/Swe-kini" target="_blank" rel="noopener noreferrer">
+        <FaGithub />
+      </a>
+      <a href="https://www.linkedin.com/in/swetha-benny/" target="_blank" rel="noopener noreferrer">
+        <FaLinkedin />
+      </a>
+      <a href="https://www.instagram.com/swe_kini" target="_blank" rel="noopener noreferrer">
+        <FaInstagram />
+      </a>
     </div>
+  </div>
+
+  {/* About Me Button */}
+  <Link to="/about" className="about-link">About Me</Link>
+
+</div>
   );
-};
+};    
+    
 
 export default Home;
