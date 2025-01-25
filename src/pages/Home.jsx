@@ -30,7 +30,10 @@ const Home = () => {
     <div className="home">
       {/* Profile Section */}
       <div className="profile-container">
-        <h1>HI <br /> I AM {user.name}</h1>
+        <h1>HI <img src="https://raw.githubusercontent.com/nixin72/nixin72/master/wave.gif" 
+         alt="Waving hand animated gif"
+         height="40"
+         width="40" /> <br /> I AM {user.name}</h1>
         <img src={`http://localhost:8080${user.profile_pic}`} alt="Profile" className="profile-img" />
       </div>
 

@@ -63,4 +63,12 @@
   .project-card::marker {
     display: none;
   }
+  .project-link {
+    display: block; /* Make the link cover the entire card */
+    text-decoration: none; /* Remove the underline */
+    color: inherit; /* Inherit the text color */
+  }
   
+  .project-link:hover {
+    text-decoration: none; /* Prevent underline on hover */
+  }

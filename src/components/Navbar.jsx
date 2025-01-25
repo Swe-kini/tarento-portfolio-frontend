@@ -20,15 +20,9 @@ const Navbar = () => {
             <Link to="/projects" className="navbar-link">Projects</Link>
           </li>
           <li className="navbar-item">
-            <a 
-              href="/resume.pdf" // Path to your resume file
-              target="_blank" // Open in a new tab
-              rel="noopener noreferrer" // Security best practice for external links
-              className="navbar-link"
-            >
-              Resume
-            </a>
+            <Link to="/resume" className="navbar-link"> Resume</Link>
           </li>
+
         </ul>
       </div>
     </nav>

@@ -1,0 +1,112 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Ensures padding and borders don't cause overflow */
+  }
+  
+  html, body {
+    font-family: Arial, sans-serif;
+    background-color: #fff; /* White background */
+    color: #333; /* Dark text color for readability */
+    width: 100%;
+  }
+  
+  /* Project Page Styles */
+  .project-page {
+    
+    margin: 0 ; /* Center the content */
+    background-color: #fff; /* White background */
+    padding: 20px; /* Add some padding inside */
+  }
+  
+  .project-page h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px; /* Add space below the main title */
+    color: #333; /* Dark color for main title */
+  }
+  
+  .project-page h2 {
+    font-size: 1.75rem;
+    margin-top: 30px; /* Space before each subheading */
+    margin-bottom: 15px; /* Space below each subheading */
+    color: #333;
+  }
+  
+  .project-page p {
+    font-size: 1rem;
+    color: #555; /* Lighter text color for paragraphs */
+    margin-bottom: 15px; /* Add space below each paragraph */
+    line-height: 1.6; /* Increase line height for readability */
+    width: 100%;
+  }
+  
+  .project-page ul {
+    list-style-type: square;
+    padding-left: 20px;
+    margin-bottom: 20px; /* Add space below the list */
+  }
+  
+  .project-page a {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+  }
+  
+  .project-page a:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Section Styling */
+  .project-page section {
+    margin-bottom: 30px; /* Add space between sections */
+  }
+  
+  .project-page code {
+    font-family: "Courier New", Courier, monospace;
+    background-color: #f0f0f0;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+  
+  .images-container {
+    display: flex;
+    flex-direction: row; /* Keep the images side by side */
+    gap: 100px; /* Add space between images */
+    width: 35%; /* Adjust the width for the images container */
+    justify-content: center; /* Center images horizontally */
+    align-items: center; /* Center images vertically */
+    margin: 0 auto; /* Center the container horizontally within its parent */
+  }
+  
+  .project-image {
+    width: 100%; /* Ensure the images take up the full width of their container */
+    height: 300px; /* Set a fixed height for both images */
+    object-fit: cover; /* Ensure the images maintain their aspect ratio while filling the container */
+    border-radius: 8px; /* Optional: adds rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: adds a slight shadow around images */
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .project-page {
+      flex-direction: column; /* Stack the content vertically on smaller screens */
+      align-items: center; /* Center the content */
+    }
+  
+    .project-page h1 {
+      font-size: 2rem; /* Reduce font size on smaller screens */
+    }
+  
+    .project-page p {
+      width: 100%; /* Make the paragraph content take the full width on smaller screens */
+    }
+  
+    .images-container {
+      width: 100%; /* Make the image container take the full width on smaller screens */
+    }
+  }

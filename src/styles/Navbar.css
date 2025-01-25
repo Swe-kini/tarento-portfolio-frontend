@@ -37,13 +37,16 @@
   }
   
   .navbar-link {
-    color: white;
+    color: rgb(5, 5, 5);
     text-decoration: none;
     font-size: 1.1rem;
     transition: color 0.3s ease;
   }
   
   .navbar-link:hover {
-    color: #ff5722; /* Change color on hover */
+    color: #1c1855; /* Change color on hover */
+  }
+  .navbar-item:hover {
+    background-color: #9583c0;
   }
   

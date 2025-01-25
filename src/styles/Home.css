@@ -1,11 +1,3 @@
-/* General Body Styling */
-body, html {
-    background-color: #000000; /* Full black background for the entire page */
-    color: white; /* White text for contrast */
-    margin: 0;
-    padding: 0;
-    height: 100%; /* Ensures the background spans the full viewport height */
-  }
   
   /* Home Page Main Container */
   .home {
