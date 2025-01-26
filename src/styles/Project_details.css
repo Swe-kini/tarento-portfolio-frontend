@@ -35,7 +35,7 @@
   
   .project-page p {
     font-size: 1rem;
-    color: #555; /* Lighter text color for paragraphs */
+    color: #333; /* Lighter text color for paragraphs */
     margin-bottom: 15px; /* Add space below each paragraph */
     line-height: 1.6; /* Increase line height for readability */
     width: 100%;
@@ -91,22 +91,79 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: adds a slight shadow around images */
   }
   
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .project-page {
-      flex-direction: column; /* Stack the content vertically on smaller screens */
-      align-items: center; /* Center the content */
-    }
-  
-    .project-page h1 {
-      font-size: 2rem; /* Reduce font size on smaller screens */
-    }
-  
-    .project-page p {
-      width: 100%; /* Make the paragraph content take the full width on smaller screens */
-    }
-  
-    .images-container {
-      width: 100%; /* Make the image container take the full width on smaller screens */
-    }
+  /* Responsive Design for Tablets and Smaller Screens */
+@media (max-width: 768px) {
+  .project-page {
+    padding: 15px; /* Reduce padding on smaller screens */
   }
+
+  .project-page h1 {
+    font-size: 2rem; /* Adjust title size for tablets */
+  }
+
+  .project-page h2 {
+    font-size: 1.5rem; /* Adjust subheading size */
+  }
+
+  .project-page p {
+    font-size: 1.1rem; /* Adjust paragraph size */
+  }
+
+  .project-page ul {
+    padding-left: 15px; /* Reduce padding for smaller screens */
+  }
+
+  .images-container {
+    flex-direction: column; /* Stack images vertically on smaller screens */
+    gap: 20px; /* Reduce space between images */
+    width: 100%; /* Make the images container take full width */
+  }
+
+  .project-image {
+    width: 100%; /* Ensure the images take full width */
+    height: auto; /* Let the height be responsive */
+  }
+
+  .project-page code {
+    font-size: 0.9rem; /* Adjust code font size */
+  }
+}
+
+/* Responsive Design for Mobile Screens */
+@media (max-width: 480px) {
+  .project-page h1 {
+    font-size: 1.8rem; /* Reduce font size for very small screens */
+  }
+
+  .project-page h2 {
+    font-size: 1.3rem; /* Smaller subheading size */
+  }
+
+  .project-page p {
+    font-size: 1rem; /* Further reduce paragraph font size */
+  }
+
+  .project-page ul {
+    padding-left: 10px; /* Smaller padding for mobile */
+  }
+
+  .images-container {
+    flex-direction: column; /* Stack images vertically */
+    width: 100%; /* Full width for the images container */
+    gap: 10px; /* Smaller gap between images */
+  }
+
+  .project-image {
+    width: 100%; /* Full width images */
+    height: auto; /* Make images responsive */
+  }
+
+  .project-page code {
+    font-size: 0.85rem; /* Adjust code font size */
+  }
+
+  .project-page a {
+    padding: 6px 10px; /* Smaller padding for mobile */
+    font-size: 0.9rem; /* Adjust button text size */
+  }
+}

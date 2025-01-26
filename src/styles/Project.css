@@ -72,3 +72,38 @@
   .project-link:hover {
     text-decoration: none; /* Prevent underline on hover */
   }
+  /* Responsive Design for Tablets and Smaller Screens */
+@media (max-width: 768px) {
+  .projects-list {
+    grid-template-columns: 1fr 1fr; /* Two columns on tablets */
+    gap: 15px; /* Adjust the spacing between cards */
+  }
+
+  .project-title {
+    font-size: 1.1rem; /* Slightly smaller titles */
+  }
+
+  .project-description {
+    font-size: 0.95rem; /* Adjust text size for readability */
+  }
+}
+
+/* Responsive Design for Mobile Screens */
+@media (max-width: 480px) {
+  .projects-list {
+    grid-template-columns: 1fr; /* Single column on smaller screens */
+    gap: 10px; /* Smaller spacing between cards */
+  }
+
+  .project-card {
+    padding: 10px; /* Reduce padding on mobile */
+  }
+
+  .project-title {
+    font-size: 1rem; /* Smaller title text */
+  }
+
+  .project-description {
+    font-size: 0.9rem; /* Adjust description text size */
+  }
+}

@@ -1,131 +1,221 @@
-  
-  /* Home Page Main Container */
-  .home {
-    background-color: #000000; /* Ensures the home container also has a black background */
-    color: white;
-    font-family: Verdana, sans-serif;
-    min-height: 100vh; /* Ensures the container fills the viewport */
-    padding: 20px;
-    position: relative; /* To allow child elements like absolute-positioned containers */
-  }
-  
-  /* Profile Section */
-  .profile-container {
-    text-align: left;
-    margin-top: 25vh; /* Pushes the profile text down */
-  }
-  
-  .profile-container h1 {
-    font-size: 3rem;
-  }
-  
-  .profile-img {
-    position: absolute;
-    top: 0;
-    right: 0;
-    height: 100vh;
-    object-fit: cover; /* Ensures the image doesn't get distorted */
-  }
-  
-  /* Description Section */
-  .description-container {
-    color: white;
-    text-align: left;
-    margin-bottom: 10px;
-    padding-left: 10px;
-  }
-  
-  /* Contact Information Section */
-  .contact-container {
-    position: absolute;
-    top: 500px;
-    left: 30%;
-    transform: translateX(-50%);
-    text-align: center;
-  }
-  
- /* Social Icons Section */
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Ensures padding and borders don't cause overflow */
+}
+
+html, body {
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  width: 100%;
+}
+
+/* Home Page Styles */
+.home {
+  background-color: #faf7f7; /* Light background */
+  color: white;
+  font-family: Verdana, sans-serif;
+  height: 100vh; /* Full viewport height */
+  padding: 20px; /* Reduced padding to avoid extra space */
+  position: relative; /* For absolute child positioning */
+  overflow: hidden; /* Prevent scrolling */
+  box-sizing: border-box; /* Include padding in height calculation */
+}
+
+/* Profile Section */
+.profile-container {
+  text-align: left;
+  margin-top: 30vh; /* Dynamically push the profile down */
+  padding-left: 20px; /* Add some padding from the left */
+}
+
+.profile-container h1 {
+  font-size: 3rem;
+  color: #670b74;
+  margin: 0; /* Remove extra spacing */
+}
+
+/* Profile Image */
+.profile-img {
+  position: absolute;
+  top: 0;
+  right: 20px; /* Adjust spacing from the right */
+  height: 100%; /* Full height */
+  max-width: 50%; /* Prevent image from taking too much space */
+  object-fit: cover; /* Keep proportions intact */
+}
+
+/* Description Section */
+.description-container {
+  color: rgb(3, 3, 3);
+  text-align: left;
+  margin-bottom: 10px;
+  padding-left: 20px; /* Adjust padding */
+  font-size: 1.2rem; /* Adjust font size */
+}
+
+/* Contact Information Section */
+.contact-container {
+  color: #020202;
+  position: relative;  /* Adjusted to relative positioning */
+  top: 25%;  /* Dynamically position based on screen size */
+  left: 45%;
+  transform: translateX(-50%);
+  text-align: center;
+  padding: 10px; /* Add padding for better spacing */
+}
+
+/* Social Icons Section */
 .social-container {
-    position: absolute;
-    top: 550px; /* Adjust the position */
-    left: 30%; /* Center horizontally */
-    transform: translateX(-50%); /* Perfect horizontal centering */
-    text-align: center;
-  }
-  
-  /* Social Icons */
-  .social-icons a {
-    font-size: 2.0rem; /* Increase the size of the icons */
-    color: white; /* Default icon color */
-    margin: 0 20px; /* Add horizontal spacing between icons */
-    transition: transform 0.3s ease, color 0.3s ease; /* Smooth hover effect */
-  }
-  
-  /* Hover Effect for Icons */
-  .social-icons a:hover {
-    color: #ff5722; /* Change color on hover */
-    transform: scale(1.3); /* Slightly enlarge the icon on hover */
-  }
-  
-  .about-link {
-    position: absolute; /* Enable precise positioning */
-    top: 20px; /* Distance from the top of the screen */
-    left: 55%; /* Start at the center of the screen */
-    transform: translateX(-50%); /* Adjust to perfectly center horizontally */
-    color: white;
-    font-size: 1.2rem;
-    text-decoration: none;
-    background-color: #333;
-    padding: 10px 20px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .about-link:hover {
-    background-color: #beb9b9;
-  }
-  .about-link:focus {
-    background-color: #beb9b9; /* Same background color as hover */
-    color: black; /* Ensure consistent color */
-    outline: none; /* Remove the blue focus outline */
-  }
-  /* Project Link */
-.projects-link {
-  position: absolute; /* Enable precise positioning */
-  top: 70px; /* Place it directly below the About link */
-  left: 55%; /* Center it horizontally with the About link */
-  transform: translateX(-50%); /* Center-align */
+  position: relative;
+  top: 25%; /* Move it near the bottom */
+  left: 45%; /* Center horizontally */
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+/* Social Icons */
+.social-icons a {
+  font-size: 2rem; /* Icon size */
+  color: #030303;
+  margin: 0 15px; /* Space between icons */
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+/* Hover Effect for Icons */
+.social-icons a:hover {
+  color: #ff5722;
+  transform: scale(1.3);
+}
+
+/* About Link */
+.about-link {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
   color: white;
   font-size: 1.2rem;
   text-decoration: none;
-  background-color: #333; /* Same background as About link */
+  background-color: #333;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.about-link:hover {
+  background-color: #beb9b9;
+}
+
+.about-link:focus {
+  background-color: #beb9b9;
+  color: black;
+  outline: none;
+}
+
+/* Project Link */
+.projects-link {
+  position: absolute;
+  top: 70px; /* Place it directly below the About link */
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-size: 1.2rem;
+  text-decoration: none;
+  background-color: #333;
   padding: 10px 20px;
   border-radius: 5px;
   transition: background-color 0.3s ease;
 }
 
 .projects-link:hover {
-  background-color: #beb9b9; /* Same hover effect as About link */
+  background-color: #beb9b9;
 }
 
 .projects-link:focus {
-  background-color: #beb9b9; /* Same focus effect as About link */
-  color: black; /* Consistent color */
-  outline: none; /* Remove the focus outline */
+  background-color: #beb9b9;
+  color: black;
+  outline: none;
 }
 
-  /* Responsive Design for Smaller Screens */
-  @media (max-width: 768px) {
-    .profile-container h1 {
-      font-size: 2rem;
-    }
-  
-    .contact-container {
-      top: 400px; /* Adjust the position for smaller screens */
-    }
-  
-    .social-container {
-      top: 500px; /* Adjust the position for smaller screens */
-    }
+/* Responsive Design for Tablets */
+@media (max-width: 768px) {
+  .home {
+    padding-top: 120px; /* Added padding-top to accommodate navbar */
   }
-  
+
+  .profile-container h1 {
+    font-size: 2.5rem; /* Reduce profile title size */
+  }
+
+  .profile-img {
+    height: 50vh; /* Adjust image height */
+    right: 10px;
+  }
+
+  .description-container {
+    font-size: 1rem;
+    padding-left: 10px;
+  }
+
+  .contact-container {
+    top: 40%; /* Adjust contact container position */
+    left: 45%; /* Center horizontally */
+    transform: translateX(-50%);
+  }
+
+  .social-container {
+    top: 45%; /* Adjust social icons position */
+  }
+
+  .about-link, .projects-link {
+    font-size: 1rem;
+    padding: 8px 16px;
+    position: static;
+    margin: 10px auto;
+    display: block;
+    width: fit-content;
+  }
+}
+
+/* Responsive Design for Mobile Screens */
+@media (max-width: 480px) {
+  .home {
+    padding-top: 120px; /* Add padding for small screens */
+  }
+
+  .profile-container h1 {
+    font-size: 2rem; /* Adjust profile title size */
+  }
+
+  .profile-img {
+    height: 40vh; /* Reduce image size further */
+    right: 0;
+  }
+
+  .social-icons a {
+    font-size: 1.5rem; /* Smaller icons */
+    margin: 0 10px;
+  }
+
+  .description-container {
+    font-size: 0.9rem; /* Smaller description text */
+  }
+
+  .contact-container {
+    top: 30%; /* Adjust the position */
+  }
+
+  .social-container {
+    top: 40%; /* Adjust social icons position */
+  }
+
+  .about-link, .projects-link {
+    font-size: 0.9rem;
+    padding: 6px 12px;
+    position: static;
+    margin: 10px auto;
+    display: block;
+    width: fit-content;
+  }
+}

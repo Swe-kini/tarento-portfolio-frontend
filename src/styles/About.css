@@ -38,15 +38,61 @@ padding: 0;
     font-size: 1.2rem;
     color: #0a0a0a;
     margin-bottom: 15px;
-    background-color: #f1f4f7;
+    background-color:transparent;
     padding: 10px;
     border-radius: 5px;
     transition: background-color 0.3s ease;
   }
   
-  /* li:hover {
-    background-color: #9583c0;
+/* Responsive Design for Tablets */
+@media (max-width: 768px) {
+  .about {
+    padding: 10px;
   }
-   */
-  /* Responsive design (same as previous) */
+
+  .about-title {
+    font-size: 2.5rem; /* Adjust title size for tablets */
+  }
+
+  .section-title {
+    font-size: 1.8rem; /* Adjust section title size */
+  }
+
+  ul {
+    margin-bottom: 30px; /* Reduce spacing for smaller screens */
+  }
+
+  li {
+    font-size: 1.1rem; /* Slightly smaller text */
+    padding: 8px; /* Reduce padding inside list items */
+  }
+}
+
+/* Responsive Design for Mobile Screens */
+@media (max-width: 480px) {
+  .about {
+    padding: 10px; /* Smaller padding for mobile */
+  }
+
+  .about-title {
+    font-size: 2rem; /* Adjust title size for mobile */
+    margin-bottom: 20px; /* Add spacing below the title */
+  }
+
+  .section-title {
+    font-size: 1.5rem; /* Smaller section titles */
+    margin-bottom: 8px; /* Reduce spacing below section titles */
+  }
+
+  ul {
+    margin-bottom: 20px; /* Reduce spacing below lists */
+  }
+
+  li {
+    font-size: 1rem; /* Reduce text size */
+    padding: 6px; /* Adjust padding inside list items */
+  }
+}
+
+ 
   

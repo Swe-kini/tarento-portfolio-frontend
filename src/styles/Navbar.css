@@ -1,52 +1,125 @@
-/* Navbar Styles */
+/* Navbar Base Styles */
 .navbar {
-    background-color: #333;
-    color: white;
-    padding: 15px;
-    position: sticky;
-    top: 0; /* Make the navbar stick to the top */
-    z-index: 1000;
+  background-color: #efecf1;
+  color: rgb(255, 252, 252);
+  padding: 15px;
+  position: fixed; /* Fixed at the top of the screen */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: top 0.3s ease; /* Smooth transition when hiding/showing */
+}
+
+/* Navbar Visible */
+.navbar.visible {
+  top: 0; /* Fully visible */
+}
+
+/* Navbar Hidden */
+.navbar.hidden {
+  top: -60px; /* Move navbar out of view */
+}
+
+/* Navbar Container */
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Logo Styles */
+.navbar-logo {
+  font-size: 1.5rem;
+  color: rgb(41, 36, 36);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Menu Styles */
+.navbar-menu {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-item {
+  margin: 0;
+}
+
+.navbar-link {
+  color: #670b74;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+.navbar-link:hover {
+  color: #5e9bf7;
+}
+
+/* Hamburger Icon */
+.hamburger-icon {
+  display: none; /* Hide on larger screens */
+  font-size: 2rem;
+  cursor: pointer;
+  color: #670b74;
+}
+
+/* Responsive Design for Tablets and Smaller Screens */
+@media (max-width: 768px) {
+  .navbar-container {
+    flex-direction: column; /* Stack logo and menu items vertically */
+    align-items: flex-start; /* Align logo and menu items to the left */
+  }
+
+  .navbar-menu {
+    display: none; /* Hide by default on small screens */
+    gap: 15px;
+    margin-top: 20px;
+    text-align: center;
     width: 100%;
   }
-  
-  .navbar-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
+
+  .navbar-menu.active {
+    display: block; /* Show when menu is active */
   }
-  
-  .navbar-logo {
-    font-size: 1.5rem;
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  .navbar-menu {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .navbar-item {
-    margin: 0;
-  }
-  
+
   .navbar-link {
-    color: rgb(5, 5, 5);
-    text-decoration: none;
-    font-size: 1.1rem;
-    transition: color 0.3s ease;
+    font-size: 1.2rem; /* Increase the font size for better readability */
   }
-  
-  .navbar-link:hover {
-    color: #1c1855; /* Change color on hover */
+
+  .hamburger-icon {
+    display: block; /* Show hamburger icon on small screens */
+    font-size: 2rem;
+    cursor: pointer;
+    color: #670b74;
   }
-  .navbar-item:hover {
-    background-color: #9583c0;
+}
+
+/* Mobile/Tablet View */
+@media (max-width: 480px) {
+  .navbar-container {
+    flex-direction: column; /* Stack logo and menu items vertically */
+    align-items: flex-start; /* Align items to the left */
+    padding: 10px;
   }
-  
+
+  .navbar-logo {
+    font-size: 1.3rem; /* Slightly smaller logo on mobile */
+  }
+
+  .navbar-menu {
+    display: block; /* Stack the menu items */
+    margin-top: 10px;
+    gap: 10px;
+  }
+
+  .navbar-link {
+    font-size: 1rem; /* Reduce font size for mobile */
+  }
+}
