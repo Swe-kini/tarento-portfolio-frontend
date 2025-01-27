@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { fetchUserProfile } from "../services/api";
 import { Link } from "react-router-dom";
-import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';  // Import icons
+import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope } from "react-icons/fa"; // Import email icon
 
-import "../styles/Home.css";  // Import the CSS file
+import "../styles/Home.css"; // Import the CSS file
 
 const Home = () => {
   const [user, setUser] = useState(null);
@@ -30,11 +30,20 @@ const Home = () => {
     <div className="home">
       {/* Profile Section */}
       <div className="profile-container">
-        <h1>HI <img src="https://raw.githubusercontent.com/nixin72/nixin72/master/wave.gif" 
-         alt="Waving hand animated gif"
-         height="40"
-         width="40" /> <br /> I AM {user.name}</h1>
-        <img src={`http://localhost:8080${user.profile_pic}`} alt="Profile" className="profile-img" />
+        <h1>
+          HI <img
+            src="https://raw.githubusercontent.com/nixin72/nixin72/master/wave.gif"
+            alt="Waving hand animated gif"
+            height="40"
+            width="40"
+          />{" "}
+          <br /> I AM {user.name}
+        </h1>
+        <img
+          src={`http://localhost:8080${user.profile_pic}`}
+          alt="Profile"
+          className="profile-img"
+        />
       </div>
 
       {/* Description Section */}
@@ -45,9 +54,9 @@ const Home = () => {
       {/* Contact Information Section */}
       <div className="contact-container">
         <p className="contact">
-          {user.phone} <br />
-          {user.email}
+          {user.phone}
         </p>
+        
       </div>
 
       {/* Social Media Links Section */}
@@ -59,12 +68,18 @@ const Home = () => {
           <a href="https://www.linkedin.com/in/swetha-benny/" target="_blank" rel="noopener noreferrer">
             <FaLinkedin />
           </a>
-          <a href="https://www.instagram.com/swe_kini" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://www.instagram.com/swe_kini?igsh=cnR6aHc2cWQ0dzFv"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <FaInstagram />
           </a>
+          <a href={`mailto:${user.email}`} className="email-link">
+          <FaEnvelope /> {/* Email icon */}
+        </a>
         </div>
       </div>
-
     </div>
   );
 };

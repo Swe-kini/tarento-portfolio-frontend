@@ -41,7 +41,7 @@ const Navbar = () => {
     >
       <div className="navbar-container">
         <Link to="/" className="navbar-logo">
-          My Portfolio
+          {/* Portfolio */}
         </Link>
 
         {/* Hamburger Icon for Mobile */}

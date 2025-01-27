@@ -39,7 +39,7 @@ html, body {
 .profile-img {
   position: absolute;
   top: 0;
-  right: 20px; /* Adjust spacing from the right */
+  right: 40px; /* Adjust spacing from the right */
   height: 100%; /* Full height */
   max-width: 50%; /* Prevent image from taking too much space */
   object-fit: cover; /* Keep proportions intact */
@@ -58,7 +58,7 @@ html, body {
 .contact-container {
   color: #020202;
   position: relative;  /* Adjusted to relative positioning */
-  top: 25%;  /* Dynamically position based on screen size */
+  top: 36%;  /* Dynamically position based on screen size */
   left: 45%;
   transform: translateX(-50%);
   text-align: center;
@@ -159,13 +159,13 @@ html, body {
   }
 
   .contact-container {
-    top: 40%; /* Adjust contact container position */
+    top: 45%; /* Adjust contact container position */
     left: 45%; /* Center horizontally */
     transform: translateX(-50%);
   }
 
   .social-container {
-    top: 45%; /* Adjust social icons position */
+    top: 40%; /* Adjust social icons position */
   }
 
   .about-link, .projects-link {
@@ -181,7 +181,11 @@ html, body {
 /* Responsive Design for Mobile Screens */
 @media (max-width: 480px) {
   .home {
-    padding-top: 120px; /* Add padding for small screens */
+    display: flex; /* Use flexbox to manage vertical alignment */
+    flex-direction: column; /* Stack elements vertically */
+    justify-content: space-between; /* Distribute space evenly */
+    align-items: center; /* Center align items horizontally */
+    padding-top: 20px; /* Adjust padding for small screens */
   }
 
   .profile-container h1 {
@@ -190,24 +194,37 @@ html, body {
 
   .profile-img {
     height: 40vh; /* Reduce image size further */
-    right: 0;
+    right: 0px;
+  }
+
+  .social-container {
+    position: relative; /* Ensure it's positioned relative to its parent */
+    margin: 20px 0; /* Add consistent spacing above and below */
+    text-align: center; /* Center align the icons */
   }
 
   .social-icons a {
     font-size: 1.5rem; /* Smaller icons */
-    margin: 0 10px;
+    margin: 0 8px; /* Reduce spacing between icons */
+    color: #030303; /* Ensure the icons are visible */
+    display: inline-block; /* Ensure proper alignment */
+  }
+
+  .contact-container {
+    display: flex; /* Use flexbox for alignment */
+    flex-direction: column; /* Stack contact info vertically */
+    align-items: center; /* Center align text horizontally */
+    justify-content: center; /* Center align vertically */
+    padding: 10px; /* Add padding for spacing */
+    width: 100%; /* Take full width */
+    text-align: center; /* Center align the text */
+    font-size: 1rem; /* Adjust font size for smaller screens */
+    color: #020202; /* Ensure readability */
+    margin-top: 10px; /* Add margin to separate from social icons */
   }
 
   .description-container {
     font-size: 0.9rem; /* Smaller description text */
-  }
-
-  .contact-container {
-    top: 30%; /* Adjust the position */
-  }
-
-  .social-container {
-    top: 40%; /* Adjust social icons position */
   }
 
   .about-link, .projects-link {

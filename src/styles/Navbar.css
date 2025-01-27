@@ -71,6 +71,7 @@
 }
 
 /* Responsive Design for Tablets and Smaller Screens */
+/* Responsive Design for Tablets and Smaller Screens */
 @media (max-width: 768px) {
   .navbar-container {
     flex-direction: column; /* Stack logo and menu items vertically */
@@ -79,14 +80,17 @@
 
   .navbar-menu {
     display: none; /* Hide by default on small screens */
+    flex-direction: column; /* Stack menu items vertically */
     gap: 15px;
     margin-top: 20px;
     text-align: center;
     width: 100%;
+    background-color: #efecf1; /* Optional: Add a background color for better visibility */
+    padding: 10px 0; /* Add some padding around the menu items */
   }
 
   .navbar-menu.active {
-    display: block; /* Show when menu is active */
+    display: flex; /* Show the menu when active */
   }
 
   .navbar-link {
@@ -114,12 +118,21 @@
   }
 
   .navbar-menu {
-    display: block; /* Stack the menu items */
+    display: none; /* Ensure the menu is hidden by default */
+    flex-direction: column; /* Stack the menu items */
     margin-top: 10px;
     gap: 10px;
+    background-color: #efecf1; /* Optional background color */
+    padding: 10px;
+    width: 100%; /* Full width for mobile */
+  }
+
+  .navbar-menu.active {
+    display: flex; /* Show the menu when active */
   }
 
   .navbar-link {
     font-size: 1rem; /* Reduce font size for mobile */
   }
 }
+
