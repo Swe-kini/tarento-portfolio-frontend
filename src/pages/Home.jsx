@@ -13,7 +13,7 @@ const Home = () => {
       .then((data) => {
         console.log("Fetched data:", data);
         if (data.profile_pic) {
-          console.log("Profile Pic URL:", `http://localhost:8080${data.profile_pic}`);
+          console.log("Profile Pic URL:", `http://localhost:8080/${data.profile_pic}`);
         } else {
           console.warn("Profile picture URL is missing in the fetched data.");
         }

@@ -178,61 +178,78 @@ html, body {
   }
 }
 
-/* Responsive Design for Mobile Screens */
 @media (max-width: 480px) {
   .home {
-    display: flex; /* Use flexbox to manage vertical alignment */
+    display: flex; /* Use flexbox to align items */
     flex-direction: column; /* Stack elements vertically */
-    justify-content: space-between; /* Distribute space evenly */
-    align-items: center; /* Center align items horizontally */
-    padding-top: 20px; /* Adjust padding for small screens */
+    justify-content: center; /* Center all child elements vertically */
+    align-items: center; /* Center all child elements horizontally */
+    padding-top: 20px; /* Add padding to create space */
+    height: auto; /* Allow the container to adjust to its content height */
+    overflow: visible; /* Ensure no content is clipped */
   }
 
   .profile-container h1 {
-    font-size: 2rem; /* Adjust profile title size */
+    font-size: 2rem; /* Adjust font size */
+    text-align: center; /* Center-align the text */
   }
 
   .profile-img {
-    height: 40vh; /* Reduce image size further */
-    right: 0px;
-  }
-
-  .social-container {
-    position: relative; /* Ensure it's positioned relative to its parent */
-    margin: 20px 0; /* Add consistent spacing above and below */
-    text-align: center; /* Center align the icons */
-  }
-
-  .social-icons a {
-    font-size: 1.5rem; /* Smaller icons */
-    margin: 0 8px; /* Reduce spacing between icons */
-    color: #030303; /* Ensure the icons are visible */
-    display: inline-block; /* Ensure proper alignment */
-  }
-
-  .contact-container {
-    display: flex; /* Use flexbox for alignment */
-    flex-direction: column; /* Stack contact info vertically */
-    align-items: center; /* Center align text horizontally */
-    justify-content: center; /* Center align vertically */
-    padding: 10px; /* Add padding for spacing */
-    width: 100%; /* Take full width */
-    text-align: center; /* Center align the text */
-    font-size: 1rem; /* Adjust font size for smaller screens */
-    color: #020202; /* Ensure readability */
-    margin-top: 10px; /* Add margin to separate from social icons */
+    height: 40vh; /* Reduce the image size for small screens */
+    right: 0; /* Prevent overflow */
   }
 
   .description-container {
-    font-size: 0.9rem; /* Smaller description text */
+    font-size: 0.9rem; /* Adjust font size for readability */
+    text-align: center; /* Center-align text */
+    padding: 0 10px; /* Add padding for spacing */
+    margin-top: 10px; /* Space between description and other sections */
   }
 
-  .about-link, .projects-link {
-    font-size: 0.9rem;
-    padding: 6px 12px;
-    position: static;
-    margin: 10px auto;
+  .contact-container {
+    display: flex; /* Use flexbox to align items */
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center-align items horizontally */
+    justify-content: center; /* Center-align items vertically */
+    padding: 10px; /* Add padding for spacing */
+    width: 100%; /* Ensure full width */
+    text-align: center; /* Center-align text */
+    font-size: 1rem; /* Adjust font size */
+    color: #020202; /* Ensure visibility */
+    margin-top: 15px; /* Add space above the contact container */
+    position: relative; /* Avoid conflicting position values */
+  }
+
+  .social-container {
+    display: flex; /* Use flexbox for alignment */
+    flex-direction: row; /* Align icons in a row */
+    justify-content: center; /* Center-align icons */
+    align-items: center; /* Center-align vertically */
+    margin-top: 15px; /* Add space above the social icons */
+    width: 100%; /* Full width for better alignment */
+    text-align: center; /* Center-align the container */
+  }
+
+  .social-icons a {
+    font-size: 1.5rem; /* Adjust icon size */
+    margin: 0 8px; /* Adjust spacing between icons */
+    color: #030303; /* Ensure visibility */
+    display: inline-block; /* Proper alignment */
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+
+  .social-icons a:hover {
+    color: #ff5722; /* Hover color */
+    transform: scale(1.3); /* Hover zoom effect */
+  }
+
+  .about-link,
+  .projects-link {
+    font-size: 0.9rem; /* Adjust font size */
+    padding: 6px 12px; /* Adjust padding */
+    position: static; /* Avoid absolute positioning issues */
+    margin: 10px auto; /* Center-align links */
     display: block;
-    width: fit-content;
+    width: fit-content; /* Fit width to content */
   }
 }

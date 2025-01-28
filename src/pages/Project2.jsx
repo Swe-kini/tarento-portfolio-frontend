@@ -1,33 +1,52 @@
-import React from "react";
-import "../styles/Project_details.css";
+import React, { useState, useEffect } from "react";
+import { fetchProjects } from "../services/api"; // Import the API function to fetch all projects
+
 const Project2 = () => {
+  const [project, setProject] = useState(null);
+
+  useEffect(() => {
+    const fetchProjectData = async () => {
+      try {
+        // Fetch all projects data
+        const projectsData = await fetchProjects(); // Fetch all projects
+
+        // Find the project with ID 2
+        const projectData = projectsData.find((p) => p.id === 2); // Find project with ID 2
+        setProject(projectData); // Set project data
+      } catch (error) {
+        console.error("Error fetching project data:", error);
+      }
+    };
+
+    fetchProjectData(); // Call the function to fetch data
+  }, []);
+
+  if (!project) {
+    return <div>Loading...</div>; // Show loading message while data is being fetched
+  }
+
   return (
     <div className="project-page">
-      <h1>An Indoor Rescue Robot: RescueRoam</h1>
-      <p>
-        The project introduces “RescueRoam,” an innovative robot designed for Indoor Toxic
-        Gas Detection and Human Monitoring. The RescueRoam robot seamlessly integrates
-        remote control capabilities with autonomous obstacle avoidance, featuring advanced
-        gas sensors for real-time toxic gas detection. With unobtrusive human detection and
-        the application of imitation learning, the system ensures efficient navigation in
-        indoor spaces affected by toxic gases, while continually refining its skills. Serving
-        as a communication relay, RescueRoam facilitates seamless data transmission and
-        monitors human vital signs, enhancing overall safety measures. This comprehensive
-        solution addresses the critical need for indoor safety, offering a versatile and
-        proactive approach to toxic gas detection and human monitoring in affected spaces.
-      </p>
+      <h1>{project.title}</h1>
+      <p>{project.description}</p>
 
-      <div className="images-container">
-        <img
-          src="/robotImage1.jpg"
-          alt="RescueRoam Robot"
-          className="project-image"
-        />
-        <img
-          src="/robotImage2.jpg"
-          className="project-image"
-        />
-      </div>
+      <section>
+        <h2>Explanation</h2>
+        <div dangerouslySetInnerHTML={{ __html: project.explanation }} />
+      </section>
+
+      <section>
+        <h2>Project Images</h2>
+        {project.image ? (  // Check if image exists in the project data
+          <img
+            src={`http://localhost:8080/${project.image}`}  // Construct the full image URL
+            alt="Project Image"
+            className="project-image"
+          />
+        ) : (
+          <p>No image available for this project.</p>
+        )}
+      </section>
     </div>
   );
 };

@@ -9,7 +9,9 @@ const Projects = () => {
   useEffect(() => {
     fetchProjects()
       .then((data) => {
-        setProjects(data);
+        // Sort projects by id in ascending order
+        const sortedProjects = data.sort((a, b) => a.id - b.id);
+        setProjects(sortedProjects);
       })
       .catch((error) => {
         console.error("Error fetching projects:", error);
@@ -24,11 +26,11 @@ const Projects = () => {
     <div className="projects-container">
       <h1 className="projects-title">Projects</h1>
       <ul className="projects-list">
-        {projects.map((project, index) => (
+        {projects.map((project) => (
           <li key={project.id} className="project-card">
             {/* Make the entire card clickable */}
             <Link
-              to={`/project${index + 1}`}
+              to={`/project${project.id}`} // Use project.id to ensure correct link
               className="project-link"
             >
               <h2 className="project-title">{project.title}</h2>
