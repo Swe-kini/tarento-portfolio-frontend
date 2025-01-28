@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { fetchUserProfile } from "../services/api";
 import { Link } from "react-router-dom";
-import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope } from "react-icons/fa"; // Import email icon
+import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa"; // Import email icon
 
 import "../styles/Home.css"; // Import the CSS file
 
@@ -28,59 +28,51 @@ const Home = () => {
 
   return (
     <div className="home">
-      {/* Profile Section */}
       <div className="profile-container">
         <h1>
           HI <img
             src="https://raw.githubusercontent.com/nixin72/nixin72/master/wave.gif"
-            alt="Waving hand animated gif"
+
             height="40"
             width="40"
           />{" "}
           <br /> I AM {user.name}
+          <div className="description-container">
+        <p className="description">{user.description}</p>
+      </div>
         </h1>
+      </div>
+      <div className="profile-image">
         <img
           src={`http://localhost:8080${user.profile_pic}`}
           alt="Profile"
           className="profile-img"
         />
-      </div>
-
-      {/* Description Section */}
-      <div className="description-container">
-        <p className="description">{user.description}</p>
-      </div>
-
-      {/* Contact Information Section */}
-      <div className="contact-container">
-        <p className="contact">
-          {user.phone}
-        </p>
-        
-      </div>
-
-      {/* Social Media Links Section */}
-      <div className="social-container">
-        <div className="social-icons">
-          <a href="https://github.com/Swe-kini" target="_blank" rel="noopener noreferrer">
-            <FaGithub />
-          </a>
-          <a href="https://www.linkedin.com/in/swetha-benny/" target="_blank" rel="noopener noreferrer">
-            <FaLinkedin />
-          </a>
-          <a
-            href="https://www.instagram.com/swe_kini?igsh=cnR6aHc2cWQ0dzFv"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FaInstagram />
-          </a>
-          <a href={`mailto:${user.email}`} className="email-link">
-          <FaEnvelope /> {/* Email icon */}
-        </a>
         </div>
-      </div>
-    </div>
+      {/* Description Section */}
+     
+      
+{/* Social Media Links Section */}
+
+  <div className="social-icons">
+    {/* GitHub Link */}
+    <a href={`${user.github}`} className="social-link" target="_blank" rel="noopener noreferrer">
+      <FaGithub /> {/* GitHub icon */}
+    </a>
+
+    {/* LinkedIn Link */}
+    <a href={`${user.linkedin}`} className="social-link" target="_blank" rel="noopener noreferrer">
+      <FaLinkedin /> {/* LinkedIn icon */}
+    </a>
+
+    {/* Email Link */}
+    <a href={`mailto:${user.email}`} className="social-link">
+      <FaEnvelope /> {/* Email icon */}
+    </a>
+     
+  </div> 
+</div>
+
   );
 };
 

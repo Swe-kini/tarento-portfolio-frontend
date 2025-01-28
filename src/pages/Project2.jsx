@@ -27,16 +27,16 @@ const Project2 = () => {
 
   return (
     <div className="project-page">
-      <h1>{project.title}</h1>
-      <p>{project.description}</p>
 
       <section>
-        <h2>Explanation</h2>
+       
         <div dangerouslySetInnerHTML={{ __html: project.explanation }} />
       </section>
+      
+        <div className="project-image">
 
       <section>
-        <h2>Project Images</h2>
+       
         {project.image ? (  // Check if image exists in the project data
           <img
             src={`http://localhost:8080/${project.image}`}  // Construct the full image URL
@@ -47,6 +47,7 @@ const Project2 = () => {
           <p>No image available for this project.</p>
         )}
       </section>
+      </div>
     </div>
   );
 };

@@ -8,7 +8,7 @@
   html, body {
     font-family: Arial, sans-serif;
     background-color: #fff; /* White background */
-    color: #333; /* Dark text color for readability */
+    color: black; /* Dark text color for readability */
     width: 100%;
   }
   
@@ -23,19 +23,19 @@
   .project-page h1 {
     font-size: 2.5rem;
     margin-bottom: 20px; /* Add space below the main title */
-    color: #333; /* Dark color for main title */
+    color: black; /* Dark color for main title */
   }
   
   .project-page h2 {
     font-size: 1.75rem;
     margin-top: 30px; /* Space before each subheading */
     margin-bottom: 15px; /* Space below each subheading */
-    color: #333;
+    color: black;
   }
   
   .project-page p {
-    font-size: 1rem;
-    color: #333; /* Lighter text color for paragraphs */
+    font-size: 1.21rem;
+    color: black; /* Lighter text color for paragraphs */
     margin-bottom: 15px; /* Add space below each paragraph */
     line-height: 1.6; /* Increase line height for readability */
     width: 100%;
@@ -73,22 +73,15 @@
     border-radius: 4px;
   }
   
-  .images-container {
-    display: flex;
-    flex-direction: row; /* Keep the images side by side */
-    gap: 100px; /* Add space between images */
-    width: 35%; /* Adjust the width for the images container */
-    justify-content: center; /* Center images horizontally */
-    align-items: center; /* Center images vertically */
-    margin: 0 auto; /* Center the container horizontally within its parent */
-  }
   
   .project-image {
-    width: 100%; /* Ensure the images take up the full width of their container */
     height: 300px; /* Set a fixed height for both images */
-    object-fit: cover; /* Ensure the images maintain their aspect ratio while filling the container */
-    border-radius: 8px; /* Optional: adds rounded corners */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: adds a slight shadow around images */
+    object-fit: cover; /* Maintain aspect ratio while filling the container */
+    border-radius: 8px; /* Adds rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds a slight shadow around images */
+  
+    display: block; /* Ensures the image behaves as a block-level element */
+    margin: 0 auto; /* Centers the image horizontally */
   }
   
   /* Responsive Design for Tablets and Smaller Screens */

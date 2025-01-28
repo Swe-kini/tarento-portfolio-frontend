@@ -25,11 +25,10 @@ const Project3 = () => {
 
   return (
     <div className="project-page">
-      <h1>{project.title}</h1>
-      <p>{project.description}</p>
+    
 
       <section>
-        <h2>Explanation</h2>
+      
         <div dangerouslySetInnerHTML={{ __html: project.explanation }} />
       </section>
 

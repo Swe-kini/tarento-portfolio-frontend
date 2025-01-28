@@ -12,11 +12,15 @@ html, body {
 
 /* Home Page Styles */
 .home {
+  display: flex; /* Flex container to manage layout */
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center horizontally */
+  justify-content: center; /* Center vertically */
   background-color: #faf7f7; /* Light background */
   color: white;
   font-family: Verdana, sans-serif;
   height: 100vh; /* Full viewport height */
-  padding: 20px; /* Reduced padding to avoid extra space */
+  padding: 20px; /* Add some space around the content */
   position: relative; /* For absolute child positioning */
   overflow: hidden; /* Prevent scrolling */
   box-sizing: border-box; /* Include padding in height calculation */
@@ -24,10 +28,17 @@ html, body {
 
 /* Profile Section */
 .profile-container {
-  text-align: left;
-  margin-top: 30vh; /* Dynamically push the profile down */
-  padding-left: 20px; /* Add some padding from the left */
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Stack items vertically */
+  align-items: flex-start; /* Align items to the left */
+  text-align: left; /* Dynamically push the profile down */
+  margin-left: 0;
+  margin-top: -20vh; 
+  padding-left: 80px; /* Adjust padding if necessary */
+  position: absolute; /* Allow absolute positioning */
+  left: 0; /* Optional: Add slight padding for spacing */
 }
+
 
 .profile-container h1 {
   font-size: 3rem;
@@ -39,7 +50,7 @@ html, body {
 .profile-img {
   position: absolute;
   top: 0;
-  right: 40px; /* Adjust spacing from the right */
+  right: 100px; /* Adjust spacing from the right */
   height: 100%; /* Full height */
   max-width: 50%; /* Prevent image from taking too much space */
   object-fit: cover; /* Keep proportions intact */
@@ -47,209 +58,73 @@ html, body {
 
 /* Description Section */
 .description-container {
-  color: rgb(3, 3, 3);
+  color: black;
   text-align: left;
-  margin-bottom: 10px;
-  padding-left: 20px; /* Adjust padding */
+  font-weight: 200;
+  margin-bottom: 10px;/* Adjust padding */
   font-size: 1.2rem; /* Adjust font size */
 }
 
-/* Contact Information Section */
-.contact-container {
-  color: #020202;
-  position: relative;  /* Adjusted to relative positioning */
-  top: 36%;  /* Dynamically position based on screen size */
-  left: 45%;
+
+
+/* Social Icons Styles */
+.social-icons {
+  position: absolute;
+  bottom: 260px;
+  left: 6%;
+  transform: translate(-50%);
+  display: flex;
+  margin-bottom: 25px;
+  justify-content: center;
+  gap: 20px;
+  padding-left: 115px;
+  /* Add spacing between icons */
+}
+
+.social-link {
+  font-size: 1.6rem; /* Size of the icons */
+  color: black; /* Icon color */
+  transition: color 0.3s ease; /* Smooth hover effect */
+}
+
+.social-link:hover {
+  color: #ff5722; /* Change color on hover */
+}
+
+
+
+/* About and Project Links */
+.about-link, .projects-link {
+  display: flex; /* Flexbox for better button alignment */
+  justify-content: center; /* Center content inside the button */
+  align-items: center; /* Vertically center the content */
+  position: absolute;
+  left: 50%;
   transform: translateX(-50%);
-  text-align: center;
-  padding: 10px; /* Add padding for better spacing */
+  color: white;
+  font-size: 1.2rem;
+  text-decoration: none;
+  background-color: #333;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
 
-/* Social Icons Section */
-.social-container {
-  position: relative;
-  top: 25%; /* Move it near the bottom */
-  left: 45%; /* Center horizontally */
-  transform: translateX(-50%);
-  text-align: center;
-}
-
-/* Social Icons */
-.social-icons a {
-  font-size: 2rem; /* Icon size */
-  color: #030303;
-  margin: 0 15px; /* Space between icons */
-  transition: transform 0.3s ease, color 0.3s ease;
-}
-
-/* Hover Effect for Icons */
-.social-icons a:hover {
-  color: #ff5722;
-  transform: scale(1.3);
-}
-
-/* About Link */
 .about-link {
-  position: absolute;
   top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: white;
-  font-size: 1.2rem;
-  text-decoration: none;
-  background-color: #333;
-  padding: 10px 20px;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
 }
 
-.about-link:hover {
-  background-color: #beb9b9;
-}
-
-.about-link:focus {
-  background-color: #beb9b9;
-  color: black;
-  outline: none;
-}
-
-/* Project Link */
 .projects-link {
-  position: absolute;
   top: 70px; /* Place it directly below the About link */
-  left: 50%;
-  transform: translateX(-50%);
-  color: white;
-  font-size: 1.2rem;
-  text-decoration: none;
-  background-color: #333;
-  padding: 10px 20px;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
 }
 
-.projects-link:hover {
+.about-link:hover, .projects-link:hover {
   background-color: #beb9b9;
 }
 
-.projects-link:focus {
+.about-link:focus, .projects-link:focus {
   background-color: #beb9b9;
   color: black;
   outline: none;
 }
 
-/* Responsive Design for Tablets */
-@media (max-width: 768px) {
-  .home {
-    padding-top: 120px; /* Added padding-top to accommodate navbar */
-  }
-
-  .profile-container h1 {
-    font-size: 2.5rem; /* Reduce profile title size */
-  }
-
-  .profile-img {
-    height: 50vh; /* Adjust image height */
-    right: 10px;
-  }
-
-  .description-container {
-    font-size: 1rem;
-    padding-left: 10px;
-  }
-
-  .contact-container {
-    top: 45%; /* Adjust contact container position */
-    left: 45%; /* Center horizontally */
-    transform: translateX(-50%);
-  }
-
-  .social-container {
-    top: 40%; /* Adjust social icons position */
-  }
-
-  .about-link, .projects-link {
-    font-size: 1rem;
-    padding: 8px 16px;
-    position: static;
-    margin: 10px auto;
-    display: block;
-    width: fit-content;
-  }
-}
-
-@media (max-width: 480px) {
-  .home {
-    display: flex; /* Use flexbox to align items */
-    flex-direction: column; /* Stack elements vertically */
-    justify-content: center; /* Center all child elements vertically */
-    align-items: center; /* Center all child elements horizontally */
-    padding-top: 20px; /* Add padding to create space */
-    height: auto; /* Allow the container to adjust to its content height */
-    overflow: visible; /* Ensure no content is clipped */
-  }
-
-  .profile-container h1 {
-    font-size: 2rem; /* Adjust font size */
-    text-align: center; /* Center-align the text */
-  }
-
-  .profile-img {
-    height: 40vh; /* Reduce the image size for small screens */
-    right: 0; /* Prevent overflow */
-  }
-
-  .description-container {
-    font-size: 0.9rem; /* Adjust font size for readability */
-    text-align: center; /* Center-align text */
-    padding: 0 10px; /* Add padding for spacing */
-    margin-top: 10px; /* Space between description and other sections */
-  }
-
-  .contact-container {
-    display: flex; /* Use flexbox to align items */
-    flex-direction: column; /* Stack items vertically */
-    align-items: center; /* Center-align items horizontally */
-    justify-content: center; /* Center-align items vertically */
-    padding: 10px; /* Add padding for spacing */
-    width: 100%; /* Ensure full width */
-    text-align: center; /* Center-align text */
-    font-size: 1rem; /* Adjust font size */
-    color: #020202; /* Ensure visibility */
-    margin-top: 15px; /* Add space above the contact container */
-    position: relative; /* Avoid conflicting position values */
-  }
-
-  .social-container {
-    display: flex; /* Use flexbox for alignment */
-    flex-direction: row; /* Align icons in a row */
-    justify-content: center; /* Center-align icons */
-    align-items: center; /* Center-align vertically */
-    margin-top: 15px; /* Add space above the social icons */
-    width: 100%; /* Full width for better alignment */
-    text-align: center; /* Center-align the container */
-  }
-
-  .social-icons a {
-    font-size: 1.5rem; /* Adjust icon size */
-    margin: 0 8px; /* Adjust spacing between icons */
-    color: #030303; /* Ensure visibility */
-    display: inline-block; /* Proper alignment */
-    transition: transform 0.3s ease, color 0.3s ease;
-  }
-
-  .social-icons a:hover {
-    color: #ff5722; /* Hover color */
-    transform: scale(1.3); /* Hover zoom effect */
-  }
-
-  .about-link,
-  .projects-link {
-    font-size: 0.9rem; /* Adjust font size */
-    padding: 6px 12px; /* Adjust padding */
-    position: static; /* Avoid absolute positioning issues */
-    margin: 10px auto; /* Center-align links */
-    display: block;
-    width: fit-content; /* Fit width to content */
-  }
-}
