@@ -3,6 +3,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box; /* Ensures padding and borders don't cause overflow */
+
   }
   
   html, body {
@@ -17,7 +18,7 @@
     
     margin: 0 ; /* Center the content */
     background-color: #fff; /* White background */
-    padding: 20px; /* Add some padding inside */
+    padding: 20px; 
   }
   
   .project-page h1 {

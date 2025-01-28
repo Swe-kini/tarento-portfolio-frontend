@@ -8,6 +8,7 @@
 html, body {
   overflow-x: hidden; /* Prevent horizontal scrolling */
   width: 100%;
+  height: 100%;
 }
 
 /* Home Page Styles */
@@ -19,6 +20,7 @@ html, body {
   background-color: #faf7f7; /* Light background */
   color: white;
   font-family: Verdana, sans-serif;
+  min-height: 100vh;
   height: 100vh; /* Full viewport height */
   padding: 20px; /* Add some space around the content */
   position: relative; /* For absolute child positioning */
@@ -28,17 +30,17 @@ html, body {
 
 /* Profile Section */
 .profile-container {
-  display: flex; /* Use flexbox for layout */
-  flex-direction: column; /* Stack items vertically */
+  display: flex;
+  flex-direction: column;
   align-items: flex-start; /* Align items to the left */
-  text-align: left; /* Dynamically push the profile down */
+  text-align: left; /* Keep text aligned to the left */
   margin-left: 0;
-  margin-top: -20vh; 
-  padding-left: 80px; /* Adjust padding if necessary */
-  position: absolute; /* Allow absolute positioning */
-  left: 0; /* Optional: Add slight padding for spacing */
+  margin-top: -20vh; /* Keep the profile section pushed up */
+  padding-left: 80px; /* Adjust padding */
+  position: absolute; /* Maintain absolute positioning */
+  left: 0; /* Align to the left */
+  flex-grow: 1
 }
-
 
 .profile-container h1 {
   font-size: 3rem;
@@ -53,7 +55,8 @@ html, body {
   right: 100px; /* Adjust spacing from the right */
   height: 100%; /* Full height */
   max-width: 50%; /* Prevent image from taking too much space */
-  object-fit: cover; /* Keep proportions intact */
+  object-fit: cover; /* Maintain aspect ratio */
+  flex-grow: 1
 }
 
 /* Description Section */
@@ -61,25 +64,23 @@ html, body {
   color: black;
   text-align: left;
   font-weight: 200;
-  margin-bottom: 10px;/* Adjust padding */
+  margin-bottom: 10px; /* Adjust padding */
   font-size: 1.2rem; /* Adjust font size */
 }
 
 
-
 /* Social Icons Styles */
 .social-icons {
-  position: absolute;
-  bottom: 260px;
-  left: 6%;
-  transform: translate(-50%);
-  display: flex;
-  margin-bottom: 25px;
-  justify-content: center;
-  gap: 20px;
-  padding-left: 115px;
-  /* Add spacing between icons */
+  display: flex; /* Use flexbox for alignment */
+  justify-content: flex-start; /* Align items to the left */
+  align-items: center; /* Center icons vertically */
+  gap: 20px; /* Space between icons */
+  margin-top: 10px; /* Space between profile and social icons */
+  padding-left: 0px; /* Remove excessive left padding */
+  width: 100%; /* Ensure it takes the full width of the container */
+  flex-grow: 1;
 }
+
 
 .social-link {
   font-size: 1.6rem; /* Size of the icons */
@@ -90,8 +91,6 @@ html, body {
 .social-link:hover {
   color: #ff5722; /* Change color on hover */
 }
-
-
 
 /* About and Project Links */
 .about-link, .projects-link {
@@ -127,4 +126,169 @@ html, body {
   color: black;
   outline: none;
 }
+/* Media Queries for Responsiveness */
 
+/* Medium Screens (max-width: 1024px) */
+@media (max-width: 1024px) {
+  .home {
+    padding: 20px;
+    height: auto;
+    min-height: 100vh; /* Ensure it fills the screen height */
+  }
+
+  .profile-container {
+    padding-bottom: 420px;
+    align-items: center;
+    text-align: center;
+    margin-top: 0; /* Remove margin */
+    padding-left: 10px;
+    flex-grow: 1;
+    right: 0;
+
+  }
+
+  .profile-container h1 {
+    font-size: 2.5rem;
+  }
+
+  .profile-img {
+    top: 300px;
+    max-width: 60%;
+    margin-top: 20px;
+    max-height: 60vh; /* Limit the height of the image */
+    right:0;
+  }
+
+  .social-icons {
+    gap: 15px;
+    margin-top: 20px;
+    padding-left: 400px;
+  }
+}
+
+/* Small Screens (max-width: 768px) */
+@media (max-width: 768px) {
+  .home {
+    padding: 0;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Push the profile image to the bottom */
+  }
+
+  .profile-container {
+    padding-top: 120px;
+    align-items: center;
+    text-align: center;
+    margin-top: 0;
+  }
+
+  .profile-container h1 {
+    font-size: 2rem;
+  }
+
+  .profile-img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 20px;
+    max-height: 100vh;
+    flex-grow: 1;
+    object-fit: cover;
+    top: 400px;
+    right: 0;
+  }
+
+  .social-icons {
+    gap: 10px;
+    margin-top: 20px;
+    padding-left: 300px;
+  }
+
+  .social-link {
+    font-size: 1.4rem;
+  }
+}
+
+/* Extra Small Screens (max-width: 576px) */
+@media (max-width: 576px) {
+  .home {
+    padding: 0;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Ensure all content fits within the screen */
+  }
+
+  .profile-container h1 {
+    padding-top: 80px;
+    
+    font-size: 1.8rem;
+  }
+
+  .description-container {
+    font-size: 1rem;
+  }
+
+  .profile-img {
+    max-width: 100%;
+    height: auto;
+    top: 200px;
+    max-height: 60vh; /* Resize image to take more space */
+    flex-grow: 1;
+    object-fit: cover;
+    right: 0;
+  }
+
+  .social-icons {
+    gap: 10px;
+    margin-top: 20px;
+    padding-left:80px;
+  }
+
+  .social-link {
+    font-size: 1.4rem;
+  }
+  .navbar{
+    padding: 30px;
+  }
+}
+
+/* Smallest Screens (max-width: 400px) */
+@media (max-width: 400px) {
+  .home {
+    padding: 0;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Ensure content fits and is at the bottom */
+  }
+
+  .profile-container h1 {
+    font-size: 1.6rem;
+  }
+
+  .description-container {
+    font-size: 0.9rem;
+  }
+
+  .profile-img {
+    top: 250px;
+    max-width: 100%;
+    max-height: 50vh;
+    margin-top: 20px;
+    flex-grow: 1;
+    right: 0;
+  }
+
+  .social-icons {
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  .social-link {
+    font-size: 1.3rem;
+  }
+}

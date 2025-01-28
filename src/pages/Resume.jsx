@@ -21,6 +21,7 @@ const Resume = () => {
           title="Resume"
           width="100%"
           height="800px"
+         
           style={{ border: "none" }}
         ></iframe>
       </div>
