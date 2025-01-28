@@ -13,10 +13,10 @@ const Project1 = () => {
         const projectData = await projectResponse.json();
         setProject(projectData);
 
-        // Fetch explanation data
-        const explanationResponse = await fetch("http://localhost:8080/api/explanations/1"); // Replace with dynamic project ID
-        const explanationData = await explanationResponse.json();
-        setExplanation(explanationData);
+        // // Fetch explanation data
+        // const explanationResponse = await fetch("http://localhost:8080/api/explanations/1"); // Replace with dynamic project ID
+        // const explanationData = await explanationResponse.json();
+        // setExplanation(explanationData);
       } catch (error) {
         console.error("Error fetching project data:", error);
       }
