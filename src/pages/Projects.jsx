@@ -9,7 +9,6 @@ const Projects = () => {
   useEffect(() => {
     fetchProjects()
       .then((data) => {
-        // Sort projects by id in ascending order
         const sortedProjects = data.sort((a, b) => a.id - b.id);
         setProjects(sortedProjects);
       })
@@ -19,7 +18,7 @@ const Projects = () => {
   }, []);
 
   if (projects.length === 0) {
-    return <p>Loading projects...</p>; // Show loading state
+    return <p>Loading projects...</p>;
   }
 
   return (
@@ -28,9 +27,8 @@ const Projects = () => {
       <ul className="projects-list">
         {projects.map((project) => (
           <li key={project.id} className="project-card">
-            {/* Make the entire card clickable */}
             <Link
-              to={`/project${project.id}`} // Use project.id to ensure correct link
+              to={`/project/${project.id}`} // Dynamic project link based on project ID
               className="project-link"
             >
               <h2 className="project-title">{project.title}</h2>
