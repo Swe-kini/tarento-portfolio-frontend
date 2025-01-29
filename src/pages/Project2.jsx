@@ -40,7 +40,7 @@ const Project2 = () => {
         {project.image ? (  // Check if image exists in the project data
           <img
             src={`http://localhost:8080/${project.image}`}  // Construct the full image URL
-            alt="Project Image"
+           
             className="project-image"
           />
         ) : (

@@ -53,6 +53,7 @@
 
 .navbar-item {
   margin: 0;
+  
 }
 
 .navbar-link {
@@ -115,7 +116,11 @@
   }
 
   .navbar-menu.active {
-    display: flex; /* Show menu when active */
+    display: flex !important; 
+    max-height: 500px; /* Expand menu */
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.3s ease-in-out; /* Smooth opening *//* Show menu when active */
   }
 
   .navbar-link {

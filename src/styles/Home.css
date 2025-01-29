@@ -1,6 +1,6 @@
 /* Global Styles */
 * {
-  margin: 0;
+  margin-top: 0;
   padding: 0;
   box-sizing: border-box; /* Ensures padding and borders don't cause overflow */
 }
@@ -8,7 +8,7 @@
 html, body {
   overflow-x: hidden; /* Prevent horizontal scrolling */
   width: 100%;
-  height: 100%;
+  height: 100vh;
 }
 
 /* Home Page Styles */
@@ -137,11 +137,11 @@ html, body {
   }
 
   .profile-container {
-    padding-bottom: 420px;
-    align-items: center;
+    padding-bottom: 100px;
+    
     text-align: center;
     margin-top: 0; /* Remove margin */
-    padding-left: 10px;
+    padding-left: 80px;
     flex-grow: 1;
     right: 0;
 
@@ -152,18 +152,14 @@ html, body {
   }
 
   .profile-img {
-    top: 300px;
+    top: 200px;
     max-width: 60%;
     margin-top: 20px;
     max-height: 60vh; /* Limit the height of the image */
     right:0;
   }
 
-  .social-icons {
-    gap: 15px;
-    margin-top: 20px;
-    padding-left: 400px;
-  }
+  
 }
 
 /* Small Screens (max-width: 768px) */
@@ -195,15 +191,10 @@ html, body {
     max-height: 100vh;
     flex-grow: 1;
     object-fit: cover;
-    top: 400px;
+    top: 100px;
     right: 0;
   }
 
-  .social-icons {
-    gap: 10px;
-    margin-top: 20px;
-    padding-left: 300px;
-  }
 
   .social-link {
     font-size: 1.4rem;
@@ -241,12 +232,6 @@ html, body {
     right: 0;
   }
 
-  .social-icons {
-    gap: 10px;
-    margin-top: 20px;
-    padding-left:80px;
-  }
-
   .social-link {
     font-size: 1.4rem;
   }
@@ -281,11 +266,6 @@ html, body {
     margin-top: 20px;
     flex-grow: 1;
     right: 0;
-  }
-
-  .social-icons {
-    gap: 8px;
-    margin-top: 20px;
   }
 
   .social-link {

@@ -8,18 +8,21 @@
   html, body {
     overflow-x: hidden; /* Prevent horizontal scrolling */
     width: 100%;
+    height:100vh;
   }
   
   .projects-container {
     background-color: #f9f9f9;
-    padding: 20px;
+    padding: 30px;
     width: 100%;
+    height:100vh;
   }
   
   .projects-title {
     text-align: center;
-    font-size: 2rem;
-    margin-bottom: 20px;
+    font-size: 3rem;
+    margin-top: 20px;
+    margin-bottom: 30px;
     color: #333;
   }
   
@@ -27,7 +30,7 @@
     list-style: none;
     display: grid;
     grid-template-columns: 1fr; /* Align cards vertically in a single column */
-    gap: 20px;
+    gap: 50px;
     padding: 0;
     margin: 0;
   }
@@ -49,15 +52,15 @@
   .project-title {
     margin: 0;
     padding: 15px;
-    font-size: 1.25rem;
+    font-size: 2rem;
     font-weight: bold;
     color: #333;
   }
   
   .project-description {
     padding: 0 15px 15px;
-    font-size: 1rem;
-    color: #555;
+    font-size: 1.2rem;
+    color: #333;
   }
   
   .project-card::marker {
@@ -92,7 +95,7 @@
 @media (max-width: 480px) {
   .projects-list {
     grid-template-columns: 1fr; /* Single column on smaller screens */
-    gap: 10px; /* Smaller spacing between cards */
+    gap: 40px; /* Smaller spacing between cards */
   }
 
   .project-card {

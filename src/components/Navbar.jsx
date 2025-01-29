@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom"; // Import useLocation for current path
-import "../styles/Navbar.css"; // Import custom styles
+import { Link, useLocation } from "react-router-dom"; 
+import "../styles/Navbar.css"; 
 
 const Navbar = () => {
-  const [isVisible, setIsVisible] = useState(true);  // Track visibility of the navbar
-  const [isMenuActive, setIsMenuActive] = useState(false); // Track visibility of the mobile menu
-  const location = useLocation(); // Get current path
+  const [isVisible, setIsVisible] = useState(true);  
+  const [isMenuActive, setIsMenuActive] = useState(false); 
+  const location = useLocation(); 
 
   // Show navbar when mouse moves near it
   const showNavbar = () => {

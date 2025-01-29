@@ -79,8 +79,6 @@
     height: 300px; /* Set a fixed height for both images */
     object-fit: cover; /* Maintain aspect ratio while filling the container */
     border-radius: 8px; /* Adds rounded corners */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds a slight shadow around images */
-  
     display: block; /* Ensures the image behaves as a block-level element */
     margin: 0 auto; /* Centers the image horizontally */
   }
@@ -125,6 +123,9 @@
 
 /* Responsive Design for Mobile Screens */
 @media (max-width: 480px) {
+  .project-page {
+    padding: 30px; /* Reduce padding on smaller screens */
+  }
   .project-page h1 {
     font-size: 1.8rem; /* Reduce font size for very small screens */
   }
