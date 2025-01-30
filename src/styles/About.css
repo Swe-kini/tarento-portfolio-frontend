@@ -48,7 +48,7 @@ padding: 0;
 /* Responsive Design for Tablets */
 @media (max-width: 768px) {
   .about {
-    padding: 10px;
+    padding: 80px;
   }
 
   .about-title {
@@ -72,12 +72,13 @@ padding: 0;
 /* Responsive Design for Mobile Screens */
 @media (max-width: 480px) {
   .about {
-    padding: 10px; /* Smaller padding for mobile */
+    padding-top: 80px;
+    margin: 0; /* Smaller padding for mobile */
   }
 
   .about-title {
     font-size: 2rem; /* Adjust title size for mobile */
-    margin-bottom: 20px; /* Add spacing below the title */
+  
   }
 
   .section-title {
@@ -91,7 +92,7 @@ padding: 0;
 
   li {
     font-size: 1rem; /* Reduce text size */
-    padding: 6px; /* Adjust padding inside list items */
+    padding: 0px; /* Adjust padding inside list items */
   }
 }
 

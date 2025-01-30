@@ -3,33 +3,29 @@
   background-color: #efecf1;
   color: rgb(255, 252, 252);
   padding: 15px;
-  position: fixed; /* Fixed at the top of the screen */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 1000;
-  transition: top 0.3s ease; /* Smooth transition when hiding/showing */
+  transition: top 0.3s ease;
 }
 
-/* Navbar Visible */
-.navbar.visible {
-  top: 0; /* Fully visible */
-}
-
-/* Navbar Hidden */
-.navbar.hidden {
-  top: -60px; /* Move navbar out of view */
+/* Navbar Visibility for Large Screens */
+@media (min-width: 769px) {
+  .navbar.hidden {
+    top: -60px; /* Move navbar out of view on large screens */
+  }
 }
 
 /* Navbar Container */
 .navbar-container {
   display: flex;
-  justify-content: space-between; /* Space between hamburger and logo */
+  justify-content: space-between;
   align-items: center;
   max-width: 1200px;
   margin: 0 auto;
-  width: 100%; /* Ensure navbar container takes full width */
-  position: relative; /* Allow position for hamburger menu */
+  width: 100%;
 }
 
 /* Logo Styles */
@@ -38,8 +34,8 @@
   color: rgb(41, 36, 36);
   text-decoration: none;
   font-weight: bold;
-  flex-grow: 1; /* Allow logo to take available space */
-  text-align: center; /* Center the logo horizontally */
+  flex-grow: 1;
+  text-align: center;
 }
 
 /* Menu Styles */
@@ -53,7 +49,6 @@
 
 .navbar-item {
   margin: 0;
-  
 }
 
 .navbar-link {
@@ -61,8 +56,7 @@
   text-decoration: none;
   font-size: 1.1rem;
   transition: color 0.3s ease;
-  padding: 10px 20px; /* Increase clickable area for better accessibility */
-  cursor: pointer; /* Add pointer cursor to links */
+  padding: 10px 20px;
 }
 
 .navbar-link:hover {
@@ -71,92 +65,44 @@
 
 /* Hamburger Icon */
 .hamburger-icon {
-  display: none; /* Hide on larger screens */
+  display: none;
   font-size: 2rem;
   cursor: pointer;
   color: #670b74;
+  
 }
-
-/* Navbar Responsive Design */
-
-/* For Tablets and Smaller Screens */
+/* Small Screens: Navbar is Always Visible */
 @media (max-width: 768px) {
+  .navbar {
+    top: 0 !important; /* Ensure navbar never hides */
+  }
+
   .navbar-container {
-    flex-direction: row; /* Keep items in a row */
-    justify-content: flex-start; /* Align logo and hamburger icon */
+    flex-direction: row;
+    justify-content: flex-start;
     padding: 10px;
   }
 
-  /* Position hamburger icon to the left */
+  /* Show hamburger icon */
   .hamburger-icon {
-    display: block; /* Show hamburger icon on small screens */
-    font-size: 2rem;
-    cursor: pointer;
-    color: #670b74;
-    margin-left: 0; /* Ensure hamburger icon is on the left */
+    display: flex;
   }
 
-  .navbar-logo {
-    flex-grow: 0; /* Prevent logo from growing */
-    text-align: left; /* Align logo to the left */
-  }
-
+  /* Hide menu by default */
   .navbar-menu {
-    display: none; /* Hide by default on small screens */
-    flex-direction: column; /* Stack menu items vertically */
-    gap: 15px;
-    margin-top: 20px;
-    text-align: left; /* Align the menu items to the left */
+    display: none;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
     background-color: #efecf1;
     padding: 10px 0;
     position: absolute;
     left: 0;
-    top: 60px; /* Position the menu below the navbar */
+    top: 60px;
   }
 
+  /* Show menu when active */
   .navbar-menu.active {
-    display: flex !important; 
-    max-height: 500px; /* Expand menu */
-    opacity: 1;
-    visibility: visible;
-    transition: all 0.3s ease-in-out; /* Smooth opening *//* Show menu when active */
-  }
-
-  .navbar-link {
-    font-size: 1.2rem; /* Increase font size for better readability */
-    padding: 12px 20px; /* Increase clickable area */
-  }
-}
-
-/* Mobile/Tablet View */
-@media (max-width: 480px) {
-  .navbar-container {
-    flex-direction: row; /* Stack logo and menu items vertically */
-    align-items: center; /* Align items to the left */
-    padding: 10px;
-  }
-
-  .navbar-logo {
-    font-size: 1.3rem; /* Slightly smaller logo on mobile */
-  }
-
-  .navbar-menu {
-    display: none; /* Ensure the menu is hidden by default */
-    flex-direction: column; /* Stack the menu items */
-    margin-top: 10px;
-    gap: 10px;
-    background-color: #efecf1; /* Optional background color */
-    padding: 10px;
-    width: 100%; /* Full width for mobile */
-  }
-
-  .navbar-menu.active {
-    display: flex; /* Show the menu when active */
-  }
-
-  .navbar-link {
-    font-size: 1rem; /* Reduce font size for mobile */
-    padding: 10px 20px; /* Increase clickable area */
+    display: flex;
   }
 }

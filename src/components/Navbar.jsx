@@ -7,14 +7,16 @@ const Navbar = () => {
   const [isMenuActive, setIsMenuActive] = useState(false); 
   const location = useLocation(); 
 
-  // Show navbar when mouse moves near it
+  // Show navbar when mouse moves near it (for large screens)
   const showNavbar = () => {
-    setIsVisible(true);
+    if (window.innerWidth > 768) {
+      setIsVisible(true);
+    }
   };
 
-  // Hide navbar when mouse moves away
+  // Hide navbar when mouse moves away (for large screens)
   const hideNavbar = () => {
-    if (location.pathname !== "/") {
+    if (window.innerWidth > 768 && location.pathname !== "/") {
       setIsVisible(false);
     }
   };
@@ -25,19 +27,21 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    // Reset navbar visibility based on current page path
-    if (location.pathname !== "/") {
-      setIsVisible(false);  // Hide navbar on all pages except Home
-    } else {
-      setIsVisible(true);  // Show navbar on the Home page
+    // Reset navbar visibility based on page path (only for large screens)
+    if (window.innerWidth > 768) {
+      if (location.pathname !== "/") {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
     }
   }, [location]);
 
   return (
     <nav
       className={`navbar ${isVisible ? "visible" : "hidden"}`}
-      onMouseEnter={showNavbar}  // Show navbar when mouse enters
-      onMouseLeave={hideNavbar}   // Hide navbar when mouse leaves
+      onMouseEnter={showNavbar}  
+      onMouseLeave={hideNavbar}   
     >
       <div className="navbar-container">
         <Link to="/" className="navbar-logo">

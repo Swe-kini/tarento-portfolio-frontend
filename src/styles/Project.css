@@ -75,8 +75,18 @@
   .project-link:hover {
     text-decoration: none; /* Prevent underline on hover */
   }
+  @media (max-width: 1024px) {
+    .projects-container{
+      padding-top : 80px;
+      height: 100vh;
+    }
+  }
   /* Responsive Design for Tablets and Smaller Screens */
 @media (max-width: 768px) {
+  .projects-container{
+    padding-top : 80px;
+    height: 100vh;
+  }
   .projects-list {
     grid-template-columns: 1fr 1fr; /* Two columns on tablets */
     gap: 15px; /* Adjust the spacing between cards */
@@ -103,7 +113,8 @@
   }
 
   .project-title {
-    font-size: 1rem; /* Smaller title text */
+    font-size: 1rem; 
+    margin-top: 100px;/* Smaller title text */
   }
 
   .project-description {
