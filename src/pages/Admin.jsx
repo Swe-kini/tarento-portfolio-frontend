@@ -13,8 +13,8 @@ const Admin = () => {
   const [courses, setCourses] = useState([]);
   const [admins, setAdmins] = useState([]);
   const [showEditForm, setShowEditForm] = useState(false);
-  const [editAdmin, setEditAdmin] = useState({ id: "", username: "", password: "" });
-  const [newAdmin, setNewAdmin] = useState({ username: "", password: "" });
+  const [editData, setEditData] = useState({});
+  const [newData, setNewData] = useState({});
 
   useEffect(() => {
     // Check if the user is authenticated
@@ -53,21 +53,6 @@ const Admin = () => {
     }
   };
 
-  const handleAddAdmin = async () => {
-    if (!newAdmin.username || !newAdmin.password) {
-      alert("Username and password are required");
-      return;
-    }
-
-    try {
-      const response = await axios.post("http://localhost:8080/admin/app_users", newAdmin);
-      setAdmins([...admins, response.data]);
-      setNewAdmin({ username: "", password: "" });
-    } catch (error) {
-      console.error("Error adding new admin:", error);
-    }
-  };
-
   const handleAdd = async () => {
     const newItem = prompt(`Enter the new ${activeSection} name:`);
     if (!newItem) return;
@@ -91,45 +76,25 @@ const Admin = () => {
     }
   };
 
-  const handleEdit = async (id, currentData) => {
-    const updatedValue = prompt(`Edit ${activeSection}:`, currentData);
-    if (!updatedValue) return;
-
-    const payload =
-      activeSection === "skills" || activeSection === "projects"
-        ? { name: updatedValue }
-        : { institution: updatedValue, degree: "Updated Degree" };
-
-    try {
-      await axios.put(`http://localhost:8080/api/${activeSection}/${id}`, payload);
-
-      // Update UI instantly
-      if (activeSection === "skills") {
-        setSkills(skills.map(item => item.id === id ? { ...item, name: updatedValue } : item));
-      } else if (activeSection === "projects") {
-        setProjects(projects.map(item => item.id === id ? { ...item, name: updatedValue } : item));
-      } else if (activeSection === "education") {
-        setEducation(education.map(item => item.id === id ? { ...item, institution: updatedValue } : item));
-      } else if (activeSection === "courses") {
-        setCourses(courses.map(item => item.id === id ? { ...item, institution: updatedValue } : item));
-      }
-    } catch (error) {
-      console.error(`Error updating ${activeSection}:`, error);
-    }
+  const handleEdit = (item) => {
+    setEditData(item);
+    setShowEditForm(true);
   };
 
-  const handleDeleteAdmin = async (id) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this admin?");
-    if (!confirmDelete) return;
-
+  const handleEditSubmit = async (e) => {
+    e.preventDefault();
     try {
-      await axios.delete(`http://localhost:8080/admin/app_users/${id}`);
+      if (activeSection === "education") {
+        await axios.put(`http://localhost:8080/api/education/${editData.id}`, editData);
+        setEducation(education.map(item => (item.id === editData.id ? editData : item)));
+      } else if (activeSection === "projects") {
+        await axios.put(`http://localhost:8080/api/projects/${editData.id}`, editData);
+        setProjects(projects.map(item => (item.id === editData.id ? editData : item)));
+      }
 
-      // Remove the deleted admin from the state
-      setAdmins(admins.filter((admin) => admin.id !== id));
-      console.log(`Admin with ID ${id} deleted successfully`);
+      setShowEditForm(false);
     } catch (error) {
-      console.error(`Error deleting admin with ID ${id}:`, error);
+      console.error("Error editing item:", error);
     }
   };
 
@@ -154,22 +119,6 @@ const Admin = () => {
   const handleLogout = () => {
     localStorage.removeItem("isAuthenticated");
     navigate("/login");
-  };
-
-  const handleAdminEditClick = (admin) => {
-    setEditAdmin(admin);
-    setShowEditForm(true);
-  };
-
-  const handleAdminEditSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await axios.put(`http://localhost:8080/admin/app_users/${editAdmin.id}`, editAdmin);
-      setShowEditForm(false);
-      fetchAdmins(); // Refresh admin list
-    } catch (error) {
-      console.error("Error updating admin:", error);
-    }
   };
 
   const renderSectionData = () => {
@@ -204,93 +153,89 @@ const Admin = () => {
       </div>
 
       <div className="content">
-        {activeSection === "admins" && (
-          <>
-            <h3>Manage Admins</h3>
-            {showEditForm && (
-              <form onSubmit={handleAdminEditSubmit}>
+        {showEditForm && (
+          <form onSubmit={handleEditSubmit}>
+            <h3>Edit {activeSection.slice(0, -1)}</h3>
+            {/* Render relevant fields for Education or Project edit */}
+            {activeSection === "education" && (
+              <>
                 <input
                   type="text"
-                  value={editAdmin.username}
-                  onChange={(e) => setEditAdmin({ ...editAdmin, username: e.target.value })}
-                  placeholder="Username"
-                  required
+                  value={editData.institution || ""}
+                  onChange={(e) => setEditData({ ...editData, institution: e.target.value })}
+                  placeholder="Institution"
                 />
                 <input
-                  type="password"
-                  value={editAdmin.password}
-                  onChange={(e) => setEditAdmin({ ...editAdmin, password: e.target.value })}
-                  placeholder="New Password (optional)"
+                  type="text"
+                  value={editData.degree || ""}
+                  onChange={(e) => setEditData({ ...editData, degree: e.target.value })}
+                  placeholder="Degree"
                 />
-                <button type="submit">Update Admin</button>
-                <button type="button" onClick={() => setShowEditForm(false)}>Cancel</button>
-              </form>
+                <input
+                  type="text"
+                  value={editData.year || ""}
+                  onChange={(e) => setEditData({ ...editData, year: e.target.value })}
+                  placeholder="Year"
+                />
+              </>
             )}
-
-            <form onSubmit={handleAddAdmin}>
-              <input
-                type="text"
-                value={newAdmin.username}
-                onChange={(e) => setNewAdmin({ ...newAdmin, username: e.target.value })}
-                placeholder="New Admin Username"
-                required
-              />
-              <input
-                type="password"
-                value={newAdmin.password}
-                onChange={(e) => setNewAdmin({ ...newAdmin, password: e.target.value })}
-                placeholder="New Admin Password"
-                required
-              />
-              <button type="submit">Add Admin</button>
-            </form>
-
-            <ul>
-              {admins.map((admin) => (
-                <li key={admin.id}>
-                  {admin.username}
-                  <FaEdit className="edit-icon" onClick={() => handleAdminEditClick(admin)} />
-                  <FaTrash className="delete-icon" onClick={() => handleDeleteAdmin(admin.id)} />
-                </li>
-              ))}
-            </ul>
-          </>
+            {activeSection === "projects" && (
+              <>
+                <input
+                  type="text"
+                  value={editData.title || ""}
+                  onChange={(e) => setEditData({ ...editData, title: e.target.value })}
+                  placeholder="Title"
+                />
+                <textarea
+                  value={editData.description || ""}
+                  onChange={(e) => setEditData({ ...editData, description: e.target.value })}
+                  placeholder="Description"
+                />
+                <textarea
+                  value={editData.details || ""}
+                  onChange={(e) => setEditData({ ...editData, details: e.target.value })}
+                  placeholder="Details"
+                />
+                <input
+                  type="text"
+                  value={editData.images || ""}
+                  onChange={(e) => setEditData({ ...editData, images: e.target.value })}
+                  placeholder="Images"
+                />
+                <textarea
+                  value={editData.explanation || ""}
+                  onChange={(e) => setEditData({ ...editData, explanation: e.target.value })}
+                  placeholder="Explanation"
+                />
+              </>
+            )}
+            <button type="submit">Save Changes</button>
+            <button type="button" onClick={() => setShowEditForm(false)}>Cancel</button>
+          </form>
         )}
-        {activeSection !== "admins" && (
-          <>
-            <h3>{activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}</h3>
-            <button className="add-button" onClick={handleAdd}>
-              <FaPlus /> Add {activeSection}
-            </button>
-            <Section title={activeSection} data={renderSectionData()} type={activeSection} onDelete={handleDelete} onEdit={handleEdit} />
-          </>
-        )}
-      </div>
-    </div>
-  );
-};
 
-const Section = ({ title, data, type, onDelete, onEdit }) => {
-  return (
-    <div>
-      <div className="card-container">
-        {data.length > 0 ? (
-          data.map((item) => (
+        <h3>{activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}</h3>
+        <button className="add-button" onClick={handleAdd}>
+          <FaPlus /> Add {activeSection}
+        </button>
+        <div className="card-container">
+          {renderSectionData().map((item) => (
             <div className="card" key={item.id}>
               <span className="card-content">
-                {type === "education" || type === "courses"
+                {activeSection === "education"
                   ? `${item.institution} - ${item.degree}`
+                  : activeSection === "projects"
+                  ? item.title
                   : item.name || item.title}
               </span>
               <div className="icons">
-                <FaEdit className="edit-icon" onClick={() => onEdit(item.id, item.name || item.institution)} />
-                <FaTrash className="delete-icon" onClick={() => onDelete(item.id)} />
+                <FaEdit className="edit-icon" onClick={() => handleEdit(item)} />
+                <FaTrash className="delete-icon" onClick={() => handleDelete(item.id)} />
               </div>
             </div>
-          ))
-        ) : (
-          <p>No {title} found</p>
-        )}
+          ))}
+        </div>
       </div>
     </div>
   );
