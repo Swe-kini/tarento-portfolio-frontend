@@ -15,6 +15,7 @@ const Admin = () => {
   const [showEditForm, setShowEditForm] = useState(false);
   const [editData, setEditData] = useState({});
   const [newData, setNewData] = useState({});
+  const [newAdmin, setNewAdmin] = useState({ username: "", password: "" });
 
   useEffect(() => {
     // Check if the user is authenticated
@@ -73,6 +74,25 @@ const Admin = () => {
       }
     } catch (error) {
       console.error(`Error adding ${activeSection}:`, error);
+    }
+  };
+
+  const handleAddAdmin = async () => {
+    const username = prompt("Enter the new admin's username:");
+    const password = prompt("Enter the new admin's password:");
+
+    if (!username || !password) return;
+
+    try {
+      const response = await axios.post("http://localhost:8080/admin/app_users", {
+        username,
+        password,
+      });
+      if (response.status === 201) {
+        setAdmins([...admins, response.data]);
+      }
+    } catch (error) {
+      console.error("Error adding admin:", error);
     }
   };
 
@@ -216,17 +236,29 @@ const Admin = () => {
         )}
 
         <h3>{activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}</h3>
-        <button className="add-button" onClick={handleAdd}>
+        <button className="add-button" onClick={activeSection === "admins" ? handleAddAdmin : handleAdd}>
           <FaPlus /> Add {activeSection}
         </button>
         <div className="card-container">
           {renderSectionData().map((item) => (
             <div className="card" key={item.id}>
               <span className="card-content">
-                {activeSection === "education"
+                {activeSection === "admins" 
+                  ? `${item.username}` 
+                  : activeSection === "education"
                   ? `${item.institution} - ${item.degree}`
                   : activeSection === "projects"
-                  ? item.title
+                  ? (
+                      <>
+                        <h4>{item.title}</h4>
+                        <p>{item.description}</p>
+                        <p>{item.details}</p>
+                        <div
+                          className="explanation"
+                          dangerouslySetInnerHTML={{ __html: item.explanation }}
+                        />
+                      </>
+                    )
                   : item.name || item.title}
               </span>
               <div className="icons">
@@ -236,6 +268,7 @@ const Admin = () => {
             </div>
           ))}
         </div>
+
       </div>
     </div>
   );
