@@ -14,14 +14,15 @@ const Admin = () => {
   const [admins, setAdmins] = useState([]);
   const [showEditForm, setShowEditForm] = useState(false);
   const [editData, setEditData] = useState({});
-  const [newData, setNewData] = useState({});
-  const [newAdmin, setNewAdmin] = useState({ username: "", password: "" });
+  const [newAdminData, setNewAdminData] = useState({ username: "", password: "" });
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [newItemData, setNewItemData] = useState({});
+  const [expanded, setExpanded] = useState({});
 
   useEffect(() => {
-    // Check if the user is authenticated
     const isAuthenticated = localStorage.getItem("isAuthenticated");
     if (!isAuthenticated) {
-      navigate("/login"); // Redirect to login page if not authenticated
+      navigate("/login");
     } else {
       fetchAllData();
       fetchAdmins();
@@ -54,45 +55,33 @@ const Admin = () => {
     }
   };
 
-  const handleAdd = async () => {
-    const newItem = prompt(`Enter the new ${activeSection} name:`);
-    if (!newItem) return;
+  const handleAdd = () => {
+    const fields = activeSection === "projects"
+      ? ["title", "description", "details", "images", "explanation"]
+      : ["institution", "degree", "year"];
+    
+    const newData = {};
+    fields.forEach(field => {
+      newData[field] = "";
+    });
 
-    const payload =
-      activeSection === "skills" || activeSection === "projects"
-        ? { name: newItem }
-        : { institution: newItem, degree: "New Degree" };
-
-    try {
-      const response = await axios.post(`http://localhost:8080/api/${activeSection}`, payload);
-      if (response.status === 201) {
-        const newData = response.data;
-        if (activeSection === "skills") setSkills([...skills, newData]);
-        else if (activeSection === "projects") setProjects([...projects, newData]);
-        else if (activeSection === "education") setEducation([...education, newData]);
-        else if (activeSection === "courses") setCourses([...courses, newData]);
-      }
-    } catch (error) {
-      console.error(`Error adding ${activeSection}:`, error);
-    }
+    setNewItemData(newData);
+    setShowAddForm(true);
   };
 
-  const handleAddAdmin = async () => {
-    const username = prompt("Enter the new admin's username:");
-    const password = prompt("Enter the new admin's password:");
-
-    if (!username || !password) return;
-
+  const handleAddSubmit = async (e) => {
+    e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8080/admin/app_users", {
-        username,
-        password,
-      });
-      if (response.status === 201) {
-        setAdmins([...admins, response.data]);
+      if (activeSection === "projects") {
+        const response = await axios.post("http://localhost:8080/api/projects", newItemData);
+        setProjects([...projects, response.data]);
+      } else if (activeSection === "education") {
+        const response = await axios.post("http://localhost:8080/api/education", newItemData);
+        setEducation([...education, response.data]);
       }
+      setShowAddForm(false);
     } catch (error) {
-      console.error("Error adding admin:", error);
+      console.error("Error adding item:", error);
     }
   };
 
@@ -158,25 +147,86 @@ const Admin = () => {
     }
   };
 
+  const toggleExpanded = (id) => {
+    setExpanded((prev) => ({ ...prev, [id]: !prev[id] }));
+  };
+
   return (
     <div className="admin-container">
       <div className="sidebar">
         <h2>Admin Dashboard</h2>
         <ul>
-          <li><button onClick={() => setActiveSection("admins")}>Manage Admins</button></li>
-          <li><button onClick={() => setActiveSection("skills")}>Manage Skills</button></li>
-          <li><button onClick={() => setActiveSection("education")}>Manage Education</button></li>
-          <li><button onClick={() => setActiveSection("courses")}>Manage Courses</button></li>
-          <li><button onClick={() => setActiveSection("projects")}>Manage Projects</button></li>
+          <li className="sidebar-item" onClick={() => setActiveSection("admins")}>Manage Admin</li>
+          <li className="sidebar-item" onClick={() => setActiveSection("skills")}>Manage Skills</li>
+          <li className="sidebar-item" onClick={() => setActiveSection("education")}>Manage Education</li>
+          <li className="sidebar-item" onClick={() => setActiveSection("courses")}>Manage Courses</li>
+          <li className="sidebar-item" onClick={() => setActiveSection("projects")}>Manage Projects</li>
         </ul>
-        <button className="logout-btn" onClick={handleLogout}>Logout</button>
+        <span className="logout-btn" onClick={handleLogout}>Logout</span>
       </div>
 
       <div className="content">
+        <h3>{activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}</h3>
+
+        <div className="card-container">
+          {renderSectionData().map((item) => (
+            <div className="card" key={item.id}>
+              <span className="card-content">
+                {activeSection === "admins" 
+                  ? `${item.username}` 
+                  : activeSection === "education"
+                  ? `${item.institution} - ${item.degree}`
+                  : activeSection === "projects"
+                  ? (
+                      <>
+                        <h4>{item.title}</h4>
+                        <p>{expanded[item.id] ? item.description : item.description.slice(0, 100)}</p>
+                        {item.description.length > 100 && (
+                          <button className="read-more-btn" onClick={() => toggleExpanded(item.id)}>
+                            {expanded[item.id] ? "Read Less" : "Read More"}
+                          </button>
+                        )}
+                        <p>{item.details}</p>
+                        <div
+                          className="explanation"
+                          dangerouslySetInnerHTML={{ __html: item.explanation }}
+                        />
+                      </>
+                    )
+                  : item.name || item.title}
+              </span>
+              <div className="icons">
+                <FaEdit className="edit-icon" onClick={() => handleEdit(item)} />
+                <FaTrash className="delete-icon" onClick={() => handleDelete(item.id)} />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <span className="add-button" onClick={handleAdd}>
+          <FaPlus /> Add {activeSection}
+        </span>
+
+        {showAddForm && (
+          <form onSubmit={handleAddSubmit}>
+            <h3>Add New {activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}</h3>
+            {Object.keys(newItemData).map((key) => (
+              <input
+                key={key}
+                type="text"
+                value={newItemData[key] || ""}
+                onChange={(e) => setNewItemData({ ...newItemData, [key]: e.target.value })}
+                placeholder={key.charAt(0).toUpperCase() + key.slice(1)}
+              />
+            ))}
+            <button type="submit">Add {activeSection}</button>
+            <button type="button" onClick={() => setShowAddForm(false)}>Cancel</button>
+          </form>
+        )}
+
         {showEditForm && (
           <form onSubmit={handleEditSubmit}>
-            <h3>Edit {activeSection.slice(0, -1)}</h3>
-            {/* Render relevant fields for Education or Project edit */}
+            <h3>Edit {activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}</h3>
             {activeSection === "education" && (
               <>
                 <input
@@ -234,41 +284,6 @@ const Admin = () => {
             <button type="button" onClick={() => setShowEditForm(false)}>Cancel</button>
           </form>
         )}
-
-        <h3>{activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}</h3>
-        <button className="add-button" onClick={activeSection === "admins" ? handleAddAdmin : handleAdd}>
-          <FaPlus /> Add {activeSection}
-        </button>
-        <div className="card-container">
-          {renderSectionData().map((item) => (
-            <div className="card" key={item.id}>
-              <span className="card-content">
-                {activeSection === "admins" 
-                  ? `${item.username}` 
-                  : activeSection === "education"
-                  ? `${item.institution} - ${item.degree}`
-                  : activeSection === "projects"
-                  ? (
-                      <>
-                        <h4>{item.title}</h4>
-                        <p>{item.description}</p>
-                        <p>{item.details}</p>
-                        <div
-                          className="explanation"
-                          dangerouslySetInnerHTML={{ __html: item.explanation }}
-                        />
-                      </>
-                    )
-                  : item.name || item.title}
-              </span>
-              <div className="icons">
-                <FaEdit className="edit-icon" onClick={() => handleEdit(item)} />
-                <FaTrash className="delete-icon" onClick={() => handleDelete(item.id)} />
-              </div>
-            </div>
-          ))}
-        </div>
-
       </div>
     </div>
   );
