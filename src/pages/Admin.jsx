@@ -17,6 +17,7 @@ const Admin = () => {
   const [newAdminData, setNewAdminData] = useState({ username: "", password: "" });
   const [showAddForm, setShowAddForm] = useState(false);
   const [newItemData, setNewItemData] = useState({});
+  const [newImage, setNewImage] = useState(null);
   const [expanded, setExpanded] = useState({});
 
   useEffect(() => {
@@ -79,6 +80,9 @@ const Admin = () => {
         const response = await axios.post("http://localhost:8080/api/education", newItemData);
         setEducation([...education, response.data]);
       }
+      if (newImage) {
+        formData.append("image", newImage);
+      }
       setShowAddForm(false);
     } catch (error) {
       console.error("Error adding item:", error);
@@ -99,6 +103,9 @@ const Admin = () => {
       } else if (activeSection === "projects") {
         await axios.put(`http://localhost:8080/api/projects/${editData.id}`, editData);
         setProjects(projects.map(item => (item.id === editData.id ? editData : item)));
+      }
+      if (newImage) {
+        formData.append("image", newImage);
       }
 
       setShowEditForm(false);
@@ -166,35 +173,42 @@ const Admin = () => {
       </div>
 
       <div className="content">
-        <h3>{activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}</h3>
+  <h3>{activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}</h3>
 
-        <div className="card-container">
-          {renderSectionData().map((item) => (
-            <div className="card" key={item.id}>
-              <span className="card-content">
-                {activeSection === "admins" 
-                  ? `${item.username}` 
-                  : activeSection === "education"
-                  ? `${item.institution} - ${item.degree}`
-                  : activeSection === "projects"
-                  ? (
-                      <>
-                        <h4>{item.title}</h4>
-                        <p>{expanded[item.id] ? item.description : item.description.slice(0, 100)}</p>
-                        {item.description.length > 100 && (
-                          <button className="read-more-btn" onClick={() => toggleExpanded(item.id)}>
-                            {expanded[item.id] ? "Read Less" : "Read More"}
-                          </button>
-                        )}
-                        <p>{item.details}</p>
-                        <div
-                          className="explanation"
-                          dangerouslySetInnerHTML={{ __html: item.explanation }}
-                        />
-                      </>
-                    )
-                  : item.name || item.title}
-              </span>
+  <div className="card-container">
+    {renderSectionData().map((item) => (
+      <div className={`card ${activeSection === "projects" ? "project-card" : ""}`} key={item.id}>
+        <span className={`card-content ${activeSection === "projects" ? "project-content" : ""}`}>
+          {activeSection === "admins" ? (
+            <span className="admin-item">{item.username}</span>
+          ) : activeSection === "education" ? (
+            <span className="education-item">{item.institution} - {item.degree}</span>
+          ) : activeSection === "projects" ? (
+            <div className="project-details">
+              <h1 className="project-title">{item.title}</h1>
+              {/* <p>{expanded[item.id] ? item.description : item.description.slice(0, 100)}</p> */}
+              {item.description.length > 100 && (
+                <button className="read-more-btn" onClick={() => toggleExpanded(item.id)}>
+                  {expanded[item.id] ? "Read Less" : "Read More"}
+                </button>
+              )}
+              <p className="project-description">{item.details}</p>
+              <div
+                className="project-explanation"
+                dangerouslySetInnerHTML={{ __html: item.explanation }}
+              />
+              {item.image && (
+                <img
+                  src={`http://localhost:8080/${item.image}`}
+                  alt={item.title}
+                  className="project-image"
+                />
+              )}
+            </div>
+          ) : (
+            <span className="default-item">{item.name || item.title}</span>
+          )}
+        </span>
               <div className="icons">
                 <FaEdit className="edit-icon" onClick={() => handleEdit(item)} />
                 <FaTrash className="delete-icon" onClick={() => handleDelete(item.id)} />
@@ -208,82 +222,182 @@ const Admin = () => {
         </span>
 
         {showAddForm && (
-          <form onSubmit={handleAddSubmit}>
-            <h3>Add New {activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}</h3>
-            {Object.keys(newItemData).map((key) => (
-              <input
-                key={key}
-                type="text"
-                value={newItemData[key] || ""}
-                onChange={(e) => setNewItemData({ ...newItemData, [key]: e.target.value })}
-                placeholder={key.charAt(0).toUpperCase() + key.slice(1)}
-              />
-            ))}
-            <button type="submit">Add {activeSection}</button>
-            <button type="button" onClick={() => setShowAddForm(false)}>Cancel</button>
-          </form>
+  <div className="popup-overlay">
+    <div className="popup">
+      <h3>Add New {activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}</h3>
+      <form onSubmit={handleAddSubmit}>
+        {activeSection === "education" && (
+          <>
+            <input
+              type="text"
+              value={newItemData.institution || ""}
+              onChange={(e) => setNewItemData({ ...newItemData, institution: e.target.value })}
+              placeholder="Institution"
+            />
+            <input
+              type="text"
+              value={newItemData.degree || ""}
+              onChange={(e) => setNewItemData({ ...newItemData, degree: e.target.value })}
+              placeholder="Degree"
+            />
+            <input
+              type="text"
+              value={newItemData.year || ""}
+              onChange={(e) => setNewItemData({ ...newItemData, year: e.target.value })}
+              placeholder="Year"
+            />
+          </>
         )}
 
-        {showEditForm && (
-          <form onSubmit={handleEditSubmit}>
-            <h3>Edit {activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}</h3>
-            {activeSection === "education" && (
-              <>
-                <input
-                  type="text"
-                  value={editData.institution || ""}
-                  onChange={(e) => setEditData({ ...editData, institution: e.target.value })}
-                  placeholder="Institution"
-                />
-                <input
-                  type="text"
-                  value={editData.degree || ""}
-                  onChange={(e) => setEditData({ ...editData, degree: e.target.value })}
-                  placeholder="Degree"
-                />
-                <input
-                  type="text"
-                  value={editData.year || ""}
-                  onChange={(e) => setEditData({ ...editData, year: e.target.value })}
-                  placeholder="Year"
-                />
-              </>
-            )}
-            {activeSection === "projects" && (
-              <>
-                <input
-                  type="text"
-                  value={editData.title || ""}
-                  onChange={(e) => setEditData({ ...editData, title: e.target.value })}
-                  placeholder="Title"
-                />
-                <textarea
-                  value={editData.description || ""}
-                  onChange={(e) => setEditData({ ...editData, description: e.target.value })}
-                  placeholder="Description"
-                />
-                <textarea
-                  value={editData.details || ""}
-                  onChange={(e) => setEditData({ ...editData, details: e.target.value })}
-                  placeholder="Details"
-                />
-                <input
-                  type="text"
-                  value={editData.images || ""}
-                  onChange={(e) => setEditData({ ...editData, images: e.target.value })}
-                  placeholder="Images"
-                />
-                <textarea
-                  value={editData.explanation || ""}
-                  onChange={(e) => setEditData({ ...editData, explanation: e.target.value })}
-                  placeholder="Explanation"
-                />
-              </>
-            )}
-            <button type="submit">Save Changes</button>
-            <button type="button" onClick={() => setShowEditForm(false)}>Cancel</button>
-          </form>
+        {activeSection === "projects" && (
+          <>
+            <input
+              type="text"
+              value={newItemData.title || ""}
+              onChange={(e) => setNewItemData({ ...newItemData, title: e.target.value })}
+              placeholder="Title"
+            />
+            <textarea
+              value={newItemData.description || ""}
+              onChange={(e) => setNewItemData({ ...newItemData, description: e.target.value })}
+              placeholder="Description"
+            />
+            <textarea
+              value={newItemData.details || ""}
+              onChange={(e) => setNewItemData({ ...newItemData, details: e.target.value })}
+              placeholder="Details"
+            />
+            <input
+              type="text"
+              value={newItemData.images || ""}
+              onChange={(e) => setNewItemData({ ...newItemData, images: e.target.value })}
+              placeholder="Images"
+            />
+            <textarea
+              value={newItemData.explanation || ""}
+              onChange={(e) => setNewItemData({ ...newItemData, explanation: e.target.value })}
+              placeholder="Explanation"
+            />
+          </>
         )}
+
+        {activeSection === "skills" && (
+          <>
+            <input
+              type="text"
+              value={newItemData.name || ""}
+              onChange={(e) => setNewItemData({ ...newItemData, name: e.target.value })}
+              placeholder="Skill Name"
+            />
+          </>
+        )}
+
+        {activeSection === "courses" && (
+          <>
+            <input
+              type="text"
+              value={newItemData.courseName || ""}
+              onChange={(e) => setNewItemData({ ...newItemData, courseName: e.target.value })}
+              placeholder="Course Name"
+            />
+            <input
+              type="text"
+              value={newItemData.platform || ""}
+              onChange={(e) => setNewItemData({ ...newItemData, platform: e.target.value })}
+              placeholder="Platform"
+            />
+          </>
+        )}
+
+        {activeSection === "admins" && (
+          <>
+            <input
+              type="text"
+              value={newItemData.username || ""}
+              onChange={(e) => setNewItemData({ ...newItemData, username: e.target.value })}
+              placeholder="Username"
+            />
+            <input
+              type="password"
+              value={newItemData.password || ""}
+              onChange={(e) => setNewItemData({ ...newItemData, password: e.target.value })}
+              placeholder="Password"
+            />
+          </>
+        )}
+
+        <button type="submit">Add {activeSection}</button>
+        <button type="button" onClick={() => setShowAddForm(false)}>Cancel</button>
+      </form>
+    </div>
+  </div>
+)}
+
+        {showEditForm && (
+  <div className="popup-overlay">
+    <div className="popup">
+      <h3>Edit {activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}</h3>
+      <form onSubmit={handleEditSubmit}>
+        {activeSection === "education" && (
+          <>
+            <input
+              type="text"
+              value={editData.institution || ""}
+              onChange={(e) => setEditData({ ...editData, institution: e.target.value })}
+              placeholder="Institution"
+            />
+            <input
+              type="text"
+              value={editData.degree || ""}
+              onChange={(e) => setEditData({ ...editData, degree: e.target.value })}
+              placeholder="Degree"
+            />
+            <input
+              type="text"
+              value={editData.year || ""}
+              onChange={(e) => setEditData({ ...editData, year: e.target.value })}
+              placeholder="Year"
+            />
+          </>
+        )}
+        {activeSection === "projects" && (
+          <>
+            <input
+              type="text"
+              value={editData.title || ""}
+              onChange={(e) => setEditData({ ...editData, title: e.target.value })}
+              placeholder="Title"
+            />
+            <textarea
+              value={editData.description || ""}
+              onChange={(e) => setEditData({ ...editData, description: e.target.value })}
+              placeholder="Description"
+            />
+            <textarea
+              value={editData.details || ""}
+              onChange={(e) => setEditData({ ...editData, details: e.target.value })}
+              placeholder="Details"
+            />
+            <input
+              type="text"
+              value={editData.images || ""}
+              onChange={(e) => setEditData({ ...editData, images: e.target.value })}
+              placeholder="Images"
+            />
+            <textarea
+              value={editData.explanation || ""}
+              onChange={(e) => setEditData({ ...editData, explanation: e.target.value })}
+              placeholder="Explanation"
+            />
+          </>
+        )}
+        <button type="submit">Save Changes</button>
+        <button type="button" onClick={() => setShowEditForm(false)}>Cancel</button>
+      </form>
+    </div>
+  </div>
+)}
+
       </div>
     </div>
   );
