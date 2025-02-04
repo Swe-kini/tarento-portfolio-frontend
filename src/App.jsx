@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import Home from "./pages/Home"; // Import Home.jsx
 import About from "./pages/About"; // Import About.jsx
 import Projects from "./pages/Projects"; // Import Projects.jsx
@@ -9,11 +9,21 @@ import Resume from "./pages/Resume";
 import Login from "./pages/Login";
 import Admin from "./pages/Admin"; 
 
+function NavbarWrapper() {
+  const location = useLocation();
+
+  // Don't show Navbar on login and admin pages
+  const isLoginOrAdminPage = location.pathname === '/login' || location.pathname === '/admin';
+
+  return !isLoginOrAdminPage ? <Navbar /> : null;
+}
+
 function App() {
   return (
     <Router>
-      {/* Navbar is displayed on all pages */}
-      <Navbar />
+      {/* Conditionally render Navbar */}
+      <NavbarWrapper />
+      
       <Routes>
         {/* Define routes */}
         <Route path="/" element={<Home />} />

@@ -1,24 +1,40 @@
 .admin-container {
     display: flex;
     height: 100vh;
-    overflow: hidden;
+    
+
 }
 
+
+  
+  
+  
+  .hamburger-icon {
+    font-size: 30px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    z-index: 1000;
+  }
+  
+ 
+  
 .sidebar {
     width: 250px;
+    height: 100vh;
     background-color: #704a75;
     color: white;
+    position: fixed;
     padding: 30px 20px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
     transition: width 0.3s ease-in-out;
+   
 }
 
-.sidebar:hover {
-    width: 280px;
-}
 
 .sidebar h2 {
     font-size: 24px;
@@ -31,9 +47,10 @@
 }
 
 .sidebar-item {
+   
     background-color: #670b74;
     color: white;
-    padding: 15px;
+    
     border-radius: 5px;
     margin-bottom: 10px;
     cursor: pointer;
@@ -44,6 +61,22 @@
 .sidebar-item:hover {
     background-color: rgb(156, 119, 187);
 }
+.portfolio-btn {
+    display: block;
+    padding: 10px 20px;
+    text-align: center;
+    background-color: #670b74; /* Green color */
+    color: white;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-top: 150px;
+  }
+  
+  .portfolio-btn:hover {
+    background-color: rgb(156, 119, 187);
+  }
 
 .logout-btn {
     background-color: #e74c3c;
@@ -65,6 +98,8 @@
     flex-grow: 1;
     padding: 30px;
     background-color: #ecf0f1;
+    margin-left: 250px;
+    
 }
 
 .add-button {
@@ -89,7 +124,7 @@
 }
 
 .card {
-    width: 300px;
+    width: 250px;
     background-color: white;
     padding: 20px;
     border-radius: 10px;
@@ -100,6 +135,7 @@
     margin-top: 20px;
     transition: transform 0.2s, box-shadow 0.2s;
     overflow: hidden; /* Prevent content from overflowing */
+    
     
 }
 
@@ -133,18 +169,36 @@
 }
 
 .card-content h1 {
-    font-size: 25px;
+    font-size: 22px;
     font-weight: bold;
     margin: 20px;
     color: black;  
 }
-.card-content p {
+    .card-content p {
     margin: 10px;
     text-align: justify center;
 }
 
-
-/* New Class for Image Styling */
+.project-card {
+   
+    width: 300px;
+   
+    height: 450px;  /* Increased height */
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    overflow: hidden;
+}
+.project-details{
+    height: 100vh;
+    
+    max-height: 400px;  /* Increase the height of the scrollable section */
+    margin-bottom: 0;  /* Remove extra margin at the bottom */
+}
 .project-image {
     width: 100%; /* Ensures image fits within the card */
     height: auto; /* Maintains aspect ratio */
@@ -155,6 +209,8 @@
 .icons {
     display: flex;
     justify-content: space-between;
+    margin-top: auto; 
+    padding-top: 0px; 
 }
 
 .edit-icon,
@@ -163,6 +219,8 @@
     font-size: 20px;
     color: #34495e;
 }
+
+  
 
 .edit-icon:hover,
 .delete-icon:hover {
@@ -226,4 +284,72 @@
   .popup button[type="button"]:hover {
     background: #999;
   }
-  
+
+@media (max-width: 1024px) {
+    .admin-container {
+        flex-direction: column;
+        display: flex;
+        overflow-y: auto; 
+    }
+    .content {
+        
+        margin-left: 0px;
+    }
+    .sidebar {
+        transform: translateX(-100%);  /* Hide sidebar by default on mobile */
+    }
+    .sidebar.active {
+      transform: translateX(0);
+      
+    }
+    .sidebar {
+        width: 100%;
+        height: auto;
+        padding: 20px;
+    }
+
+    .sidebar-item {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .content {
+        padding: 15px;
+    }
+
+    .card-container {
+        justify-content: center;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 90%;
+    }
+
+    .project-card {
+        width: 100%;
+        max-width: 90%;
+        height: auto;
+    }
+
+    .add-button {
+        position: relative;
+        margin: 15px 0;
+        width: 100%;
+    }
+}
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);  /* Hide sidebar by default on mobile */
+    }
+    .sidebar.active {
+      transform: translateX(0);
+      
+    }
+    .content {
+        
+        margin-left: 0px;
+    
+    }
+
+  }
