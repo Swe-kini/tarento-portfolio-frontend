@@ -197,13 +197,12 @@ const Admin = () => {
                 className="project-explanation"
                 dangerouslySetInnerHTML={{ __html: item.explanation }}
               />
-              {item.image && (
-                <img
-                  src={`http://localhost:8080/${item.image}`}
-                  alt={item.title}
+              
+                <img src={`http://localhost:8080/${item.image}`}
+                  
                   className="project-image"
                 />
-              )}
+             
             </div>
           ) : (
             <span className="default-item">{item.name || item.title}</span>
@@ -269,7 +268,7 @@ const Admin = () => {
             />
             <input
               type="text"
-              value={newItemData.images || ""}
+              value={newItemData.image || ""}
               onChange={(e) => setNewItemData({ ...newItemData, images: e.target.value })}
               placeholder="Images"
             />
@@ -333,7 +332,7 @@ const Admin = () => {
   </div>
 )}
 
-        {showEditForm && (
+{showEditForm && (
   <div className="popup-overlay">
     <div className="popup">
       <h3>Edit {activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}</h3>
@@ -360,6 +359,7 @@ const Admin = () => {
             />
           </>
         )}
+
         {activeSection === "projects" && (
           <>
             <input
@@ -380,9 +380,9 @@ const Admin = () => {
             />
             <input
               type="text"
-              value={editData.images || ""}
-              onChange={(e) => setEditData({ ...editData, images: e.target.value })}
-              placeholder="Images"
+              value={editData.image || ""}
+              onChange={(e) => setEditData({ ...editData, image: e.target.value })}
+              placeholder="Image URL"
             />
             <textarea
               value={editData.explanation || ""}
@@ -391,6 +391,52 @@ const Admin = () => {
             />
           </>
         )}
+
+        {activeSection === "skills" && (
+          <>
+            <input
+              type="text"
+              value={editData.name || ""}
+              onChange={(e) => setEditData({ ...editData, name: e.target.value })}
+              placeholder="Skill Name"
+            />
+          </>
+        )}
+
+        {activeSection === "courses" && (
+          <>
+            <input
+              type="text"
+              value={editData.courseName || ""}
+              onChange={(e) => setEditData({ ...editData, courseName: e.target.value })}
+              placeholder="Course Name"
+            />
+            <input
+              type="text"
+              value={editData.platform || ""}
+              onChange={(e) => setEditData({ ...editData, platform: e.target.value })}
+              placeholder="Platform"
+            />
+          </>
+        )}
+
+        {activeSection === "admins" && (
+          <>
+            <input
+              type="text"
+              value={editData.username || ""}
+              onChange={(e) => setEditData({ ...editData, username: e.target.value })}
+              placeholder="Username"
+            />
+            <input
+              type="password"
+              value={editData.password || ""}
+              onChange={(e) => setEditData({ ...editData, password: e.target.value })}
+              placeholder="Password"
+            />
+          </>
+        )}
+
         <button type="submit">Save Changes</button>
         <button type="button" onClick={() => setShowEditForm(false)}>Cancel</button>
       </form>
