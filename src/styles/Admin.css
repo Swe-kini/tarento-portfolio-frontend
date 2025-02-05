@@ -2,13 +2,7 @@
     display: flex;
     height: 100vh;
     
-
 }
-
-
-  
-  
-  
   .hamburger-icon {
     font-size: 30px;
     position: fixed;
@@ -179,27 +173,29 @@
     text-align: justify center;
 }
 
-.project-card {
+.projects-card {
    
     width: 300px;
-   
     height: 450px;  /* Increased height */
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 0px;
     transition: transform 0.2s, box-shadow 0.2s;
     overflow: hidden;
-}
-.project-details{
-    height: 100vh;
     
-    max-height: 400px;  /* Increase the height of the scrollable section */
-    margin-bottom: 0;  /* Remove extra margin at the bottom */
+    
 }
-.project-image {
+.projects-details{
+    height: 100vh;
+    max-height: 400px; 
+     /* Increase the height of the scrollable section */
+      /* Remove extra margin at the bottom */
+    
+}
+.projects-image {
     width: 100%; /* Ensures image fits within the card */
     height: auto; /* Maintains aspect ratio */
     border-radius: 8px; /* Adds rounded corners */
@@ -285,16 +281,7 @@
     background: #999;
   }
 
-@media (max-width: 1024px) {
-    .admin-container {
-        flex-direction: column;
-        display: flex;
-        overflow-y: auto; 
-    }
-    .content {
-        
-        margin-left: 0px;
-    }
+  @media (max-width: 768px) {
     .sidebar {
         transform: translateX(-100%);  /* Hide sidebar by default on mobile */
     }
@@ -302,6 +289,38 @@
       transform: translateX(0);
       
     }
+    .content {
+        
+        margin-left: 0px;
+    
+    }
+
+  }
+
+
+@media (max-width: 1024px) {
+    .hamburger-icon {
+        display: block;  /* Ensure it is visible */
+    }
+
+    .admin-container {
+        flex-direction: column;
+        display: flex;
+        overflow-y: auto;
+    }
+    
+    .content {
+        margin-left: 0px;
+    }
+    
+    .sidebar {
+        transform: translateX(-100%);  /* Hide sidebar by default */
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
     .sidebar {
         width: 100%;
         height: auto;
@@ -311,10 +330,6 @@
     .sidebar-item {
         font-size: 14px;
         padding: 10px;
-    }
-
-    .content {
-        padding: 15px;
     }
 
     .card-container {
@@ -338,18 +353,3 @@
         width: 100%;
     }
 }
-@media (max-width: 768px) {
-    .sidebar {
-        transform: translateX(-100%);  /* Hide sidebar by default on mobile */
-    }
-    .sidebar.active {
-      transform: translateX(0);
-      
-    }
-    .content {
-        
-        margin-left: 0px;
-    
-    }
-
-  }

@@ -6,7 +6,7 @@ import "../styles/Admin.css";
 
 const Admin = () => {
   const navigate = useNavigate();
-  const [activeSection, setActiveSection] = useState("skills");
+  const [activeSection, setActiveSection] = useState("admin");
   const [skills, setSkills] = useState([]);
   const [projects, setProjects] = useState([]);
   const [education, setEducation] = useState([]);
@@ -65,7 +65,7 @@ const Admin = () => {
   const getFieldsForSection = () => {
     switch (activeSection) {
       case "projects":
-        return ["title", "description", "details", "images", "explanation"];
+        return ["title", "description", "details", "explanation","image"];
       case "skills":
         return ["name"];
       case "courses":
@@ -127,9 +127,9 @@ const Admin = () => {
        fetchAllData();
        fetchAdmins();
 
-      if (newImage) {
-        formData.append("image", newImage);
-      }
+      // if (newImage) {
+      //   formData.append("image", newImage); 
+      // }
 
       setShowAddForm(false);
     } catch (error) {
@@ -247,17 +247,17 @@ const handleEditSubmit = async (e) => {
         <h3>{activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}</h3>
         <div className="card-container">
           {renderSectionData().map((item) => (
-            <div className={`card ${activeSection === "projects" ? "project-card" : ""}`} key={item.id}>
-              <span className={`card-content ${activeSection === "projects" ? "project-content" : ""}`}>
+            <div className={`card ${activeSection === "projects" ? "projects-card" : ""}`} key={item.id}>
+              <span className={`card-content ${activeSection === "projects" ? "projects-content" : ""}`}>
                 {activeSection === "admin" ? (
                   <span className="admin-item">{item.username}</span>
                 ) : activeSection === "education" ? (
                   <span className="education-item">{item.institution} - {item.degree}</span>
                 ) : activeSection === "projects" ? (
-                  <div className="project-details">
-                    <h1 className="project-title">{item.title}</h1>
-                    <div className="project-explanation" dangerouslySetInnerHTML={{ __html: item.explanation }} />
-                    {item.image && (<img src={`http://localhost:8080/${item.image}`} className="project-image" alt="Project"/>)}
+                  <div className="projects-details">
+                    <h1 className="projects-title">{item.title}</h1>
+                    <div className="projects-explanation" dangerouslySetInnerHTML={{ __html: item.explanation }} />
+                    {item.image && (<img src={`http://localhost:8080/${item.image}`} className="projects-image" alt="Project"/>)}
                   </div>
                 ) : (
                   <span className="default-item">{item.name || item.title}</span>
@@ -311,8 +311,8 @@ const handleEditSubmit = async (e) => {
                       placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
                     />
                   </div>
+                  
                 ))}
-
                 <button type="submit">Save Changes</button>
                 <button type="button" onClick={() => setShowEditForm(false)}>Cancel</button>
               </form>
