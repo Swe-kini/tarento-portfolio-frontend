@@ -4,12 +4,12 @@ import { Link } from "react-router-dom";
 const Resume = () => {
   return (
     <div>
-      {/* Navbar */}
+      
       <nav 
         className="navbar"
         style={{
           display: "flex",
-          justifyContent: "flex-end", // Align items to the right
+          justifyContent: "flex-end",
           alignItems: "center",
           backgroundColor: "#efecf1",
           padding: "10px",
@@ -36,8 +36,8 @@ const Resume = () => {
         </ul>
       </nav>
 
-      {/* PDF Viewer */}
-      <div className="pdf-container" style={{ paddingTop: "70px" }}> {/* Ensure space for navbar */}
+      
+      <div className="pdf-container" style={{ paddingTop: "70px" }}> 
         <iframe
           src="/resume.pdf"
           title="Resume"

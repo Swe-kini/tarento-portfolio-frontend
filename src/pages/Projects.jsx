@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { fetchProjects } from "../services/api"; // Import API to fetch projects
-import "../styles/Project.css"; // Import CSS for styling
+import { fetchProjects } from "../services/api"; 
+import "../styles/Project.css"; 
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
@@ -28,7 +28,7 @@ const Projects = () => {
         {projects.map((project) => (
           <li key={project.id} className="project-card">
             <Link
-              to={`/project/${project.id}`} // Dynamic project link based on project ID
+              to={`/project/${project.id}`} 
               className="project-link"
             >
               <h2 className="project-title">{project.title}</h2>

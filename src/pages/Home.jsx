@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { fetchUserProfile } from "../services/api";
 import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa"; 
+import { Link } from 'react-router-dom';
 import "../styles/Home.css"; 
 
 const Home = () => {
@@ -9,18 +10,13 @@ const Home = () => {
   useEffect(() => {
     fetchUserProfile(1)
       .then((data) => {
-        console.log("Fetched data:", data);
-        if (data.profile_pic) {
-          console.log("Profile Pic URL:", `http://localhost:8080/${data.profile_pic}`);
-        } else {
-          console.warn("Profile picture URL is missing in the fetched data.");
-        }
-        setUser(data);
+        
+        setUser(data);  
       })
       .catch((error) => {
-        console.error("Error fetching user profile:", error);
+        
       });
-  }, []); // Runs once on mount
+  }, []); 
 
   if (!user) return <p>Loading...</p>; 
 
@@ -41,16 +37,11 @@ const Home = () => {
           <p className="description">{user.description}</p>
         </div>
 
-        {/* Social Icons Section */}
+      
         <div className="social-icons">
-          <a
-            href={`${user.github}`}
-            className="social-link"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FaGithub />
-          </a>
+        <Link to={`${user.github}`} className="social-link">
+        <FaGithub />
+        </Link>
           <a
             href={`${user.linkedin}`}
             className="social-link"
@@ -65,10 +56,10 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Profile Image Section */}
+      
       <div className="profile-image">
         <img
-          src={`http://localhost:8080${user.profile_pic}`}
+          src={`data:image/jpeg;base64,${user.profilePic}`}
           alt="Profile"
           className="profile-img"
         />

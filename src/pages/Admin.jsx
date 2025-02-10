@@ -14,12 +14,10 @@ const Admin = () => {
   const [admin, setAdmin] = useState([]);
   const [showEditForm, setShowEditForm] = useState(false);
   const [editData, setEditData] = useState({});
-  const [newAdminData, setNewAdminData] = useState({ username: "", password: "" });
   const [showAddForm, setShowAddForm] = useState(false);
   const [newItemData, setNewItemData] = useState({});
   const [newImage, setNewImage] = useState(null);
-  const [expanded, setExpanded] = useState({});
-  const [isMenuActive, setIsMenuActive] = useState(false); // State for toggling menu visibility
+  const [isMenuActive, setIsMenuActive] = useState(false);
 
   useEffect(() => {
     const isAuthenticated = localStorage.getItem("isAuthenticated");
@@ -27,41 +25,35 @@ const Admin = () => {
       navigate("/login");
     } else {
       fetchAllData();
-      fetchAdmins();
+      
     }
   }, [navigate]);
 
-  // Handle the toggling of mobile menu
+ 
   const toggleMenu = () => {
     setIsMenuActive(!isMenuActive);
   };
 
   const fetchAllData = async () => {
     try {
-      const [skillsRes, projectsRes, educationRes, coursesRes] = await Promise.all([
+      const [skillsRes, projectsRes, educationRes, coursesRes,adminRes] = await Promise.all([
         axios.get("http://localhost:8080/api/skills"),
         axios.get("http://localhost:8080/api/projects"),
         axios.get("http://localhost:8080/api/education"),
         axios.get("http://localhost:8080/api/courses"),
+        axios.get("http://localhost:8080/api/admin")
       ]);
       setSkills(skillsRes.data);
       setProjects(projectsRes.data);
       setEducation(educationRes.data);
       setCourses(coursesRes.data);
+      setAdmin(adminRes.data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
-  const fetchAdmins = async () => {
-    try {
-      const response = await axios.get("http://localhost:8080/api/admin");
-      setAdmin(response.data);
-    } catch (error) {
-      console.error("Error fetching admin:", error);
-    }
-  };
-
+  
   const getFieldsForSection = () => {
     switch (activeSection) {
       case "projects":
@@ -78,30 +70,32 @@ const Admin = () => {
         return [];
     }
   };
-  
-  const handleAdd = () => {
-    let fields = [];
 
-    if (activeSection === "projects") {
-      fields = ["title", "description", "details", "images", "explanation"];
-    } else if (activeSection === "skills") {
-      fields = ["name"];
-    } else if (activeSection === "courses") {
-      fields = ["courseName", "platform"];
-    } else if (activeSection === "admin") {
-      fields = ["username", "password"];
-    } else if (activeSection === "education") {
-      fields = ["institution", "degree", "year"];
+  const renderSectionData = () => {
+    switch (activeSection) {
+      case "skills":
+        return skills;
+      case "projects":
+        return projects;
+      case "education":
+        return education;
+      case "courses":
+        return courses;
+      case "admin":
+        return admin;
+      default:
+        return [];
     }
+  };
 
-    const newData = {};
-    fields.forEach(field => {
-      newData[field] = "";
-    });
-
+  const handleAdd = () => {
+    const fields = getFieldsForSection(activeSection); 
+    const newData = Object.fromEntries(fields.map(field => [field, ""]));
+  
     setNewItemData(newData);
     setShowAddForm(true);
   };
+  
 
   const handleAddSubmit = async (e) => {
     e.preventDefault();
@@ -123,13 +117,9 @@ const Admin = () => {
         setAdmin([...admin, response.data]);
       }
 
-       // Re-fetch data after adding new item
+      
        fetchAllData();
-       fetchAdmins();
-
-      // if (newImage) {
-      //   formData.append("image", newImage); 
-      // }
+       
 
       setShowAddForm(false);
     } catch (error) {
@@ -185,13 +175,13 @@ const handleEditSubmit = async (e) => {
       else if (activeSection === "education") setEducation(education.filter((item) => item.id !== id));
       else if (activeSection === "courses") setCourses(courses.filter((item) => item.id !== id));
       else if (activeSection === "admin") setAdmin(admin.filter((item) => item.id !== id));
-      console.log(`${activeSection} with ID ${id} deleted successfully`);
+      ;
     } catch (error) {
       console.error(`Error deleting ${activeSection} with ID ${id}:`, error);
     }
-     // Re-fetch data after adding new item
+     
      fetchAllData();
-     fetchAdmins();
+     
   };
 
   const handleLogout = () => {
@@ -199,30 +189,10 @@ const handleEditSubmit = async (e) => {
     navigate("/login");
   };
 
-  const renderSectionData = () => {
-    switch (activeSection) {
-      case "skills":
-        return skills;
-      case "projects":
-        return projects;
-      case "education":
-        return education;
-      case "courses":
-        return courses;
-      case "admin":
-        return admin;
-      default:
-        return [];
-    }
-  };
-
-  // const toggleExpanded = (id) => {
-  //   setExpanded((prev) => ({ ...prev, [id]: !prev[id] }));
-  // };
-
+  
   return (
     <div className="admin-container">
-      {/* Sidebar */}
+     
       <div className={`sidebar ${isMenuActive ? "active" : ""}`}>
         <h2>Admin Dashboard</h2>
         <ul>
@@ -237,9 +207,9 @@ const handleEditSubmit = async (e) => {
         <span className="logout-btn" onClick={handleLogout}>Logout</span>
       </div>
 
-      {/* Hamburger Icon for Mobile */}
+      
       <div className="hamburger-icon" onClick={toggleMenu}>
-        &#9776; {/* The hamburger icon */}
+        &#9776; 
       </div>
 
       {/* Content Area */}
@@ -257,7 +227,7 @@ const handleEditSubmit = async (e) => {
                   <div className="projects-details">
                     <h1 className="projects-title">{item.title}</h1>
                     <div className="projects-explanation" dangerouslySetInnerHTML={{ __html: item.explanation }} />
-                    {item.image && (<img src={`http://localhost:8080/${item.image}`} className="projects-image" alt="Project"/>)}
+                    {item.image && (<img src={`data:image/jpeg;base64,${item.image}`} className="projects-image" alt="Project"/>)}
                   </div>
                 ) : (
                   <span className="default-item">{item.name || item.title}</span>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Eye, EyeOff } from "lucide-react"; // Importing eye icons
+import { Eye, EyeOff } from "lucide-react"; 
+ import axios from "axios";
 import "../styles/Login.css";
 
 const Login = () => {
@@ -14,33 +15,23 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError(null);
-
+  
     try {
-      const response = await fetch("http://localhost:8080/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: username.trim(),
-          password: password.trim(),
-        }),
+      const response = await axios.post("http://localhost:8080/api/login", {
+        username: username.trim(),
+        password: password.trim(),
       });
-
-      if (response.ok) {
-        localStorage.setItem("isAuthenticated", "true");
-        localStorage.setItem("username", username);
-        navigate("/admin");
-      } else {
-        setError("Invalid username or password");
-      }
+  
+      localStorage.setItem("isAuthenticated", "true");
+      localStorage.setItem("username", username);
+      navigate("/admin");
     } catch (err) {
-      setError("Login failed. Please try again.");
+      setError(err.response?.data?.message || "Login failed. Please try again.");
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
+
 
   return (
     <div className="login-container">
